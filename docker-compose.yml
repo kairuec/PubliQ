@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/laravel:/var/www
+      - laravel-storage:/laravel/storage/framework
+      - laravel-venrdor:/laravel/vendor
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend/nextjs:/app
+      - front_node_modules:/nextjs/node_modules
+    command: 'yarn dev'
+    ports:
+      - 3000:3000
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: bulletin-board
+      MYSQL_ROOT_PASSWORD: password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql #mysqlサービス名を指定
+      - PMA_USER=root
+      - PMA_PASSWORD=password
+    links:
+      - mysql
+    ports:
+      - 4040:80
+    volumes:
+      - ./phpmyadmin/sessions:/sessions
+      - ./phpmyadmin/phpmyadmin-misc.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
+
+volumes:
+  mysql-volume:
+  laravel-storage:
+  laravel-venrdor:
+  front_node_modules:
