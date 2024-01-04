@@ -1,6 +1,10 @@
 import axios, { csrf } from "@/lib/axios";
 import { chatState, requestState } from "@/recoil/chatAtom";
-import { questionState } from "@/recoil/questionAtom";
+import {
+  isFailState,
+  questionState,
+  tryChanceStateCount,
+} from "@/recoil/questionAtom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -10,6 +14,16 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 export const useQuestion = () => {
   const [question, setQuestion] = useRecoilState(questionState);
   const [chats, setChats] = useRecoilState(chatState);
+  const [isFail, setIsFail] = useRecoilState(isFailState);
+
+  const [tryChanceCount, setTryChaceCount] =
+    useRecoilState(tryChanceStateCount);
+
+  useEffect(() => {
+    if (tryChanceCount == 0) {
+      setIsFail(true);
+    }
+  }, [setIsFail, setQuestion, tryChanceCount]);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -73,5 +87,7 @@ export const useQuestion = () => {
     mutate,
     isContainsFailWord,
     regenerateQuestion,
+    tryChanceCount,
+    setTryChaceCount,
   };
 };

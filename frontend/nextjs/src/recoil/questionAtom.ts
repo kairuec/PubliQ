@@ -25,3 +25,8 @@ export const isFailState = atom({
   key: "isFailState",
   default: false,
 });
+
+export const tryChanceStateCount = atom({
+  key: "tryChanceStateCount",
+  default: 3,
+});

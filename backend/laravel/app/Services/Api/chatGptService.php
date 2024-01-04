@@ -39,7 +39,7 @@ class chatGptService
             ]
         );
 
-        $data['max_tokens'] = 3;
+        $data['max_tokens'] = 30;
 
         $response = Http::withHeaders($headers)->post($url, $data);
 

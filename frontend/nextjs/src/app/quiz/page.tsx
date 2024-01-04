@@ -6,17 +6,15 @@ import { CreateForm } from "./createForm";
 import { isFailState } from "@/recoil/questionAtom";
 import { Chat } from "./chat";
 import { SendForm } from "./sendForm";
+import useSound from "use-sound";
+import { useEffect } from "react";
+import { Fail } from "./fail";
 
 export default function Page() {
   const [isFail, setIsFail] = useRecoilState(isFailState);
-
   return (
     <>
-      {isFail && (
-        <div className="fadeIn flex text-center justify-center items-center h-[100vh] bg-black text-red-600 text-7xl md:text-9xl you_died">
-          YOU DIED
-        </div>
-      )}
+      {isFail && <Fail />}
       {!isFail && (
         <div className={`max-w-7xl mx-auto text-gray-800 leading-8`}>
           <header className="flex items-center justify-between py-6 px-4 md:px-0">

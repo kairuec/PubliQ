@@ -13,7 +13,9 @@ import { useChat } from "@/hooks/Chat";
 export const SendForm = () => {
   const { request, setRequest, handleEdit, errors, isVaridateError } =
     useSendChatForm();
-  const { isQuestionLoading } = useQuestion();
+  const { isQuestionLoading, tryChanceCount, setTryChaceCount } = useQuestion();
+  console.log(tryChanceCount);
+
   const { chats, setChats } = useChat();
 
   const [isFail, setIsFail] = useRecoilState(isFailState);
@@ -39,6 +41,10 @@ export const SendForm = () => {
       .then((res) => {
         setRequest((prev) => ({ ...prev, sentence: "" }));
         addChats(res.data.result, false);
+        //違っていたら回答挑戦回数を１減らす
+        if (res.data.result == "違う！") {
+          setTryChaceCount((prev) => prev - 1);
+        }
         setIsLoading(false);
       })
       .catch((error) => {

@@ -19,8 +19,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useChat } from "@/hooks/Chat";
 import { questionState } from "@/recoil/questionAtom";
+import useSound from "use-sound";
 
 export const Chat = () => {
   const { question, isQuestionLoading, regenerateQuestion } = useQuestion();
@@ -41,6 +48,30 @@ export const Chat = () => {
       scrollToBottom();
     }
   }, [chats]);
+
+  const hintFirstWord = () => {
+    const newChat = {
+      isUser: false,
+      message: `「${question.answer[0]}」`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
+
+  const hintWordCount = () => {
+    const newChat = {
+      isUser: false,
+      message: `${question.answer.length}文字`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
+
+  const giveUp = () => {
+    const newChat = {
+      isUser: false,
+      message: `正解`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
 
   return (
     <article>
@@ -65,32 +96,30 @@ export const Chat = () => {
             </TooltipProvider>
           </h2>
           <section className="flex items-center justify-center gap-4 mb-6 mr-4">
-            <div className="text-xl">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <span className="text-gray-400 cursor-default">
-                      <ThumbUpOffAlt className="h-8 w-8 mr-1" />
-                      {question.good}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>お題の高評価</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <div className="text-xl">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <span className="text-gray-400 cursor-default">
-                      <ThumbDownOffAlt className="h-8 w-8 mr-1" />
-                      {question.bad}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>お題の低評価</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
+            {/* <div className="text-gray-400">123 Play</div> */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <span className="text-gray-400 cursor-default">
+                    <ThumbUpOffAlt className="h-8 w-8 mr-1" />
+                    {question.good}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>お題の高評価</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <span className="text-gray-400 cursor-default">
+                    <ThumbDownOffAlt className="h-8 w-8 mr-1" />
+                    {question.bad}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>お題の低評価</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </section>
         </>
       )}
@@ -103,7 +132,14 @@ export const Chat = () => {
             </h3>
             <p>私に質問をして正解を当てて下さい。</p>
             <p>なお私は質問に、「はい」か「いいえ」でしか答えません。</p>
-            <p>正解だった場合は「正解」と答えます。</p>
+          </li>
+          <li className="zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]">
+            <h3 className="flex items-center gap-2">
+              <Image src="/publiq.png" alt="logo" width={35} height={35} />
+              <b className="text-lg">システム</b>
+            </h3>
+            <p>正解を回答する場合は「正解は〇〇？」と聞いてください。</p>
+            <p>なお、3回間違えるとゲームオーバーです。</p>
           </li>
           <li className="zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]">
             <h3 className="flex items-center gap-2">
@@ -144,8 +180,48 @@ export const Chat = () => {
                       />
                       <b className="text-lg">システム</b>
                     </h3>
-                    <p>{chat.message}</p>
-                    {chat.message == "正解！" && (
+                    <div className="flex items-center justify-between">
+                      <p>{chat.message}</p>
+                      {!chat.message.includes("正解") && (
+                        <div>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger>
+                              <span className="text-gray-300 mx-2">ヒント</span>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              <DropdownMenuItem>
+                                <button className="py-2">
+                                  出題者が作ったヒント
+                                </button>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <button
+                                  onClick={hintFirstWord}
+                                  className="py-2"
+                                >
+                                  正解の最初のワード
+                                </button>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <button
+                                  onClick={hintWordCount}
+                                  className="py-2"
+                                >
+                                  正解ワードの文字数
+                                </button>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                          <button
+                            onClick={giveUp}
+                            className="text-gray-300 mx-2"
+                          >
+                            ギブアップ
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    {chat.message.includes("正解") && (
                       <>
                         <p>
                           地雷ワード：
@@ -166,6 +242,7 @@ export const Chat = () => {
                     )}
                   </>
                 )}
+                <ChatSound result={chat.message} />
               </li>
             );
           })}
@@ -175,6 +252,21 @@ export const Chat = () => {
       </section>
     </article>
   );
+};
+
+const ChatSound = (props: { result: string }) => {
+  const { result } = props;
+  const [playSuccess] = useSound("/sounds/クイズ正解2.mp3");
+  const [playChat] = useSound("/sounds/決定ボタンを押す2.mp3");
+
+  useEffect(() => {
+    if (result == "正解！") {
+      playSuccess();
+    } else if (result != "") {
+      playChat();
+    }
+  }, [playSuccess, playChat, result]);
+  return <></>;
 };
 
 export function Review() {

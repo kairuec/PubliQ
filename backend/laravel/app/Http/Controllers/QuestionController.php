@@ -31,16 +31,56 @@ class QuestionController extends Controller
         $genre =  $request->genre;
         $answer = $request->answer;
         $sentence = $request->sentence;
-        $chat_response = chatGptService::store(
-            "名前当てクイズです。ジャンルは「{$genre}」で、正解は「{$answer}」です。
-            ユーザーは正解を当てるためにいろいろ質問をします。正解だった場合は「正解」と答えてください。※正解とユーザーの回答のひらがな・カタカナ・漢字の差異は判別しなくて良いです。
-            ユーザーの質問が正解じゃない場合はユーザーから質問に「はい」または「いいえ」で答えて下さい。",
-            "{$sentence}？"
-        );
-        Log::info($chat_response);
 
-        if (strstr($chat_response, '正解') !== false) {
+        // $prompt = <<<EOD
+        // クイズの判定の役割をお願いします。
+        // #お題
+        // {$genre}
+        // #正解のワード
+        // {$answer}
+        // #クイズ概要
+        // 正解のワードを当てるためにあなたに質問をします。
+        // 質問に対して「はい」または「いいえ」でお答えください。
+        // ユーザーの回答が正解の場合は「正解！」とお答えください。
+        // ひらがな、カタカナ、漢字、ローマ字の表記違いは判別しないでください。
+        // 例 正解が「トヨタ」の場合、「TOYOTA」「豊田」「とよた」は全て正解に
+        // EOD;
+        // $chat_response = chatGptService::store($prompt, $sentence . "?");
+
+        if (strpos($sentence, "正解") !== false) {
+            $mode = "quiz";
+        } else {
+            $mode = 'question';
+        }
+
+        if ($mode == 'quiz') {
+            $prompt = <<<EOD
+            クイズの判定の役割をお願いします。
+            #お題
+            {$genre}
+            #正解のワード
+            {$answer}
+            #お願いしたい事
+            ユーザーの回答が正解の場合は「正解！」とお答えください。
+            違っていた場合は「違う！」と答えてください。
+            ひらがな、カタカナ、漢字、ローマ字の表記違いは判別しないでください。
+            例 正解が「トヨタ」の場合、「TOYOTA」「豊田」「とよた」は全て正解に
+            EOD;
+            $chat_response = chatGptService::store($prompt, "{$sentence}?");
+        }
+
+        if ($mode == 'question') {
+            $prompt = <<<EOD
+            「はい」か「いいえ」で答えてください。
+            EOD;
+            $chat_response = chatGptService::store($prompt, $answer . 'は' . $sentence . "?");
+        }
+
+        //返り値のワードの固定化
+        if (strstr($chat_response, '正解！') !== false) {
             $result = "正解！";
+        } else if (strstr($chat_response, '違う！') !== false) {
+            $result = "違う！";
         } else if (strstr($chat_response, 'はい') !== false) {
             $result = "はい";
         } else {
