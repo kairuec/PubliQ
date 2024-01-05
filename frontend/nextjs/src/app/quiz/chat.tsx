@@ -49,6 +49,14 @@ export const Chat = () => {
     }
   }, [chats]);
 
+  const hintWord = () => {
+    const newChat = {
+      isUser: false,
+      message: `ヒント：${question.hint}`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
+
   const hintFirstWord = () => {
     const newChat = {
       isUser: false,
@@ -190,7 +198,7 @@ export const Chat = () => {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                               <DropdownMenuItem>
-                                <button className="py-2">
+                                <button onClick={hintWord} className="py-2">
                                   出題者が作ったヒント
                                 </button>
                               </DropdownMenuItem>

@@ -121,14 +121,26 @@ export function Create() {
         />
         <FormField
           control={formVal.control}
+          name="hint"
+          render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center justify-between">
+                <FormLabel>ヒント※任意</FormLabel>
+              </div>
+              <FormControl>
+                <Input placeholder="和食" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={formVal.control}
           name="failWord1"
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between">
-                <FormLabel>地雷ワード1</FormLabel>
-                <p className="text-sm">
-                  {countFull1half05(formVal.watch("failWord1"))} / 20
-                </p>
+                <FormLabel>地雷ワード1※任意</FormLabel>
               </div>
               <FormControl>
                 <Input placeholder="うどん" {...field} />
@@ -143,13 +155,10 @@ export function Create() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between">
-                <FormLabel>地雷ワード2</FormLabel>
-                <p className="text-sm">
-                  {countFull1half05(formVal.watch("failWord2"))} / 20
-                </p>
+                <FormLabel>地雷ワード2※任意</FormLabel>
               </div>
               <FormControl>
-                <Input placeholder="うどん" {...field} />
+                <Input placeholder="ラーメン" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -161,10 +170,7 @@ export function Create() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between">
-                <FormLabel>地雷ワード3</FormLabel>
-                <p className="text-sm">
-                  {countFull1half05(formVal.watch("failWord3"))} / 20
-                </p>
+                <FormLabel>地雷ワード3※任意</FormLabel>
               </div>
               <FormControl>
                 <Input placeholder="パスタ" {...field} />

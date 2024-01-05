@@ -20,6 +20,7 @@ class Question extends Authenticatable
     protected $fillable = [
         'genre',
         'answer',
+        'hint',
         'failWord1',
         'failWord2',
         'failWord3',

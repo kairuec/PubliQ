@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('genre')->default("");
             $table->string('answer')->default("");
-            $table->string('failWord1')->default("");
-            $table->string('failWord2')->default("");
-            $table->string('failWord3')->default("");
-            $table->integer('good')->default(0);
-            $table->integer('bad')->default(0);
+            $table->string('hint')->default("")->nullable();
+            $table->string('failWord1')->default("")->nullable();
+            $table->string('failWord2')->default("")->nullable();
+            $table->string('failWord3')->default("")->nullable();
+            $table->integer('good')->default(0)->nullable();
+            $table->integer('bad')->default(0)->nullable();
             $table->timestamps();
         });
     }

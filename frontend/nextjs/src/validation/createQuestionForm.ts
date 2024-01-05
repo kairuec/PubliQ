@@ -33,6 +33,7 @@ export function useCreateQuestionForm() {
   const formSchema = z.object({
     genre: lengthValidation(),
     answer: lengthValidation(),
+    hint: failWordValidation(),
     failWord1: failWordValidation(),
     failWord2: failWordValidation(),
     failWord3: failWordValidation(),
@@ -43,6 +44,7 @@ export function useCreateQuestionForm() {
     defaultValues: {
       genre: "",
       answer: "",
+      hint: "",
       failWord1: "",
       failWord2: "",
       failWord3: "",

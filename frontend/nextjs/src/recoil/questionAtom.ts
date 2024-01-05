@@ -4,6 +4,7 @@ const init = {
   id: 0,
   genre: "",
   answer: "",
+  hint: "",
   failWord1: "",
   failWord2: "",
   failWord3: "",
