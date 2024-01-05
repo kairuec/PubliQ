@@ -36,50 +36,19 @@ export const Chat = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useRecoilState(isLoadingState);
 
+  //チャットがある度に下にスクロール
   useEffect(() => {
     if (chats.length > 1) {
       const scrollToBottom = () => {
         if (contentRef.current) {
           contentRef.current.scrollIntoView({
-            behavior: "smooth", // オプション：スムーズなスクロールを有効にする場合
+            behavior: "smooth",
           });
         }
       };
       scrollToBottom();
     }
   }, [chats]);
-
-  const hintWord = () => {
-    const newChat = {
-      isUser: false,
-      message: `ヒント：${question.hint}`,
-    };
-    setChats((prev) => [...prev, newChat]);
-  };
-
-  const hintFirstWord = () => {
-    const newChat = {
-      isUser: false,
-      message: `「${question.answer[0]}」`,
-    };
-    setChats((prev) => [...prev, newChat]);
-  };
-
-  const hintWordCount = () => {
-    const newChat = {
-      isUser: false,
-      message: `${question.answer.length}文字`,
-    };
-    setChats((prev) => [...prev, newChat]);
-  };
-
-  const giveUp = () => {
-    const newChat = {
-      isUser: false,
-      message: `正解`,
-    };
-    setChats((prev) => [...prev, newChat]);
-  };
 
   return (
     <article>
@@ -116,7 +85,6 @@ export const Chat = () => {
                 <TooltipContent>お題の高評価</TooltipContent>
               </Tooltip>
             </TooltipProvider>
-
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
@@ -139,7 +107,7 @@ export const Chat = () => {
               <b className="text-lg">システム</b>
             </h3>
             <p>私に質問をして正解を当てて下さい。</p>
-            <p>なお私は質問に、「はい」か「いいえ」でしか答えません。</p>
+            <p>なお、質問には「はい」か「いいえ」でしか答えません。</p>
           </li>
           <li className="zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]">
             <h3 className="flex items-center gap-2">
@@ -188,53 +156,17 @@ export const Chat = () => {
                       />
                       <b className="text-lg">システム</b>
                     </h3>
-                    <div className="flex items-center justify-between">
-                      <p>{chat.message}</p>
-                      {!chat.message.includes("正解") && (
-                        <div>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger>
-                              <span className="text-gray-300 mx-2">ヒント</span>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                              <DropdownMenuItem>
-                                <button onClick={hintWord} className="py-2">
-                                  出題者が作ったヒント
-                                </button>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <button
-                                  onClick={hintFirstWord}
-                                  className="py-2"
-                                >
-                                  正解の最初のワード
-                                </button>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <button
-                                  onClick={hintWordCount}
-                                  className="py-2"
-                                >
-                                  正解ワードの文字数
-                                </button>
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                          <button
-                            onClick={giveUp}
-                            className="text-gray-300 mx-2"
-                          >
-                            ギブアップ
-                          </button>
-                        </div>
-                      )}
-                    </div>
+
+                    <p>{chat.message}</p>
+                    {!chat.message.includes("正解") && <Hint />}
                     {chat.message.includes("正解") && (
                       <>
+                        <p>正解：{question.answer}</p>
                         <p>
                           地雷ワード：
-                          {question.failWord1},{question.failWord2},
-                          {question.failWord3}
+                          {question.failWord1 != "" && `${question.failWord1}`}
+                          {question.failWord2 != "" && `,${question.failWord2}`}
+                          {question.failWord3 != "" && `,${question.failWord3}`}
                         </p>
                         <Review />
                         <section className="flex items-center gap-4">
@@ -262,7 +194,7 @@ export const Chat = () => {
   );
 };
 
-const ChatSound = (props: { result: string }) => {
+export function ChatSound(props: { result: string }) {
   const { result } = props;
   const [playSuccess] = useSound("/sounds/クイズ正解2.mp3");
   const [playChat] = useSound("/sounds/決定ボタンを押す2.mp3");
@@ -275,7 +207,76 @@ const ChatSound = (props: { result: string }) => {
     }
   }, [playSuccess, playChat, result]);
   return <></>;
-};
+}
+
+export function Hint() {
+  const [question, setQuestion] = useRecoilState(questionState);
+  const { chats, setChats, request, setRequest } = useChat();
+
+  const hintWord = () => {
+    const newChat = {
+      isUser: false,
+      message: `ヒント：${question.hint}`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
+
+  const hintFirstWord = () => {
+    const newChat = {
+      isUser: false,
+      message: `ヒント：最初のワード「${question.answer[0]}」`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
+
+  const hintWordCount = () => {
+    const newChat = {
+      isUser: false,
+      message: `ヒント「${question.answer.length}文字」`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
+
+  const giveUp = () => {
+    const newChat = {
+      isUser: false,
+      message: `正解`,
+    };
+    setChats((prev) => [...prev, newChat]);
+  };
+
+  return (
+    <div className="flex justify-end">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <span className="text-gray-300 mx-2">ヒント</span>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          {question.hint != "" && (
+            <DropdownMenuItem>
+              <button onClick={hintWord} className="py-2">
+                出題者が作ったヒント
+              </button>
+            </DropdownMenuItem>
+          )}
+          <DropdownMenuItem>
+            <button onClick={hintFirstWord} className="py-2">
+              正解の最初のワード
+            </button>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <button onClick={hintWordCount} className="py-2">
+              正解ワードの文字数
+            </button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <button onClick={giveUp} className="text-gray-300 mx-2">
+        ギブアップ
+      </button>
+    </div>
+  );
+}
 
 export function Review() {
   const [isGood, setIsGood] = useState(false);
