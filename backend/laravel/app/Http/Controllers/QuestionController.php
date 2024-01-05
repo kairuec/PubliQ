@@ -47,7 +47,7 @@ class QuestionController extends Controller
         // EOD;
         // $chat_response = chatGptService::store($prompt, $sentence . "?");
 
-        if (strpos($sentence, "正解") !== false) {
+        if (preg_match("/正解|せいかい|答え|こたえ/", $sentence)) {
             $mode = "quiz";
         } else {
             $mode = 'question';
@@ -76,7 +76,6 @@ class QuestionController extends Controller
             $chat_response = chatGptService::store($prompt, $answer . 'は' . $sentence . "?");
         }
 
-        //返り値のワードの固定化
         if (strstr($chat_response, '正解！') !== false) {
             $result = "正解！";
         } else if (strstr($chat_response, '違う！') !== false) {

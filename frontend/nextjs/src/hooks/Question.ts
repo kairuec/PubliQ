@@ -44,7 +44,16 @@ export const useQuestion = () => {
     if (data != undefined) {
       setQuestion(data);
     }
-  }, [data, setQuestion]);
+    //チャット初期化
+    setChats([
+      {
+        isUser: true,
+        message: "",
+      },
+    ]);
+    //失敗カウント初期化
+    setTryChaceCount(3);
+  }, [data]);
 
   // 404 エラー時のエラーハンドリング
   useEffect(() => {
@@ -58,15 +67,9 @@ export const useQuestion = () => {
   //別の問題に変更
   const regenerateQuestion = () => {
     if (searchParams.get("id") != null) {
-      router.push("/quiz");
+      router.push("/");
     }
     mutate("/api/question/random");
-    setChats([
-      {
-        isUser: true,
-        message: "",
-      },
-    ]);
   };
 
   const failWords = [
