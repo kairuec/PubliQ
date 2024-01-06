@@ -9,18 +9,17 @@ import { isFailState } from "@/recoil/questionAtom";
 import { useQuestion } from "@/hooks/Question";
 import { useSendChatForm } from "@/validation/sendChatForm";
 import { useChat } from "@/hooks/Chat";
+import { useRecapcha } from "@/hooks/Recapcha";
 
 export const SendForm = () => {
   const { request, setRequest, handleEdit, errors, isVaridateError } =
     useSendChatForm();
   const { isQuestionLoading, tryChanceCount, setTryChaceCount } = useQuestion();
-  console.log(tryChanceCount);
-
   const { chats, setChats } = useChat();
-
   const [isFail, setIsFail] = useRecoilState(isFailState);
   const [isLoading, setIsLoading] = useRecoilState(isLoadingState);
   const { isContainsFailWord } = useQuestion();
+  const { isRecapchaCheck, handleRecapcha } = useRecapcha();
 
   const addChats = (reqMessage: string, reqIsUser: boolean) => {
     const newChat = { isUser: reqIsUser, message: reqMessage };
@@ -36,20 +35,23 @@ export const SendForm = () => {
     setIsLoading(true);
     e.preventDefault();
     await csrf();
-    axios
-      .post(`/api/question/store`, request)
-      .then((res) => {
-        setRequest((prev) => ({ ...prev, sentence: "" }));
-        addChats(res.data.result, false);
-        //違っていたら回答挑戦回数を１減らす
-        if (res.data.result == "違う！") {
-          setTryChaceCount((prev) => prev - 1);
-        }
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        if (error.response.status !== 422) throw error;
-      });
+
+    const post = async () => {
+      const res = await axios.post(`/api/question/store`, request);
+      setRequest((prev) => ({ ...prev, sentence: "" }));
+      addChats(res.data.result, false);
+
+      // 違っていたら回答挑戦回数を１減らす
+      if (res.data.result === "違う！") {
+        setTryChaceCount((prev) => prev - 1);
+      }
+      setIsLoading(false);
+    };
+
+    //リキャプチャのチェックを通過していたらそのままpost まだの場合はリキャプチャのチェック後にpost
+    if (isRecapchaCheck || (await handleRecapcha())) {
+      await post();
+    }
   };
 
   return (
@@ -70,7 +72,7 @@ export const SendForm = () => {
             className={`text-sm w-full p-3 border border-gray-200 rounded duration-100 placeholder-gray-300`}
           />
           {!isVaridateError && (
-            <button>
+            <button onClick={handleRecapcha}>
               <Send className="mr-1 -mt-1 text-amber-500" />
             </button>
           )}

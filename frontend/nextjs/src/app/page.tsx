@@ -9,15 +9,6 @@ import { Fail } from "./quiz/fail";
 import { SendForm } from "./quiz/sendForm";
 import { Chat } from "./quiz/chat";
 import { CreateForm } from "./quiz/createForm";
-import { FaXTwitter } from "react-icons/fa6";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { SideMenu } from "@/components/SideMenu";
 
 export default function Page() {

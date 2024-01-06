@@ -31,6 +31,7 @@ import { useQuestion } from "@/hooks/Question";
 import { useCreateQuestionForm } from "@/validation/createQuestionForm";
 import { useRecoilState } from "recoil";
 import { createUrlState } from "@/recoil/questionAtom";
+import { useRecapcha } from "@/hooks/Recapcha";
 
 export const CreateForm = () => {
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
@@ -61,20 +62,29 @@ export function Create() {
   const { formVal, formSchema, countFull1half05 } = useCreateQuestionForm();
   const [isLoading, setIsLoading] = useState(false);
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
+  const { isRecapchaCheck, handleRecapcha } = useRecapcha();
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     await csrf();
-    axios
-      .post(`/api/question/createQuestion`, { values })
-      .then((res) => {
-        // console.log(res.data);
-        setCreateUrl(`https://publiq.online/quiz?id=${res.data.id}`);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        if (error.response.status !== 422) throw error;
-      });
+
+    const post = async () => {
+      axios
+        .post(`/api/question/createQuestion`, { values })
+        .then((res) => {
+          // console.log(res.data);
+          setCreateUrl(`https://publiq.online/quiz?id=${res.data.id}`);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          if (error.response.status !== 422) throw error;
+        });
+    };
+
+    //リキャプチャのチェックを通過していたらそのままpost まだの場合はリキャプチャのチェック後にpost
+    if (isRecapchaCheck || (await handleRecapcha())) {
+      await post();
+    }
   };
 
   return (
