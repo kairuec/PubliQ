@@ -60,7 +60,7 @@ export const useQuestion = () => {
     if (questionError?.response?.status === 404) {
       // 404 エラーが発生した場合の処理をここに追加
       // 例: リダイレクトやエラーメッセージの表示など
-      router.push("404");
+      // router.push("404");
     }
   }, [questionError, router]);
 
