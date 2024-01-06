@@ -18,71 +18,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'company',
         'name',
         'email',
-        'shop_mail',
-        'rms_shop_mail',
-        'auth_id',
-        'auth_password',
+        'twitter',
+        'youtube',
+        'instagram',
         'password',
-        'tel',
         'terms',
         'Authority',
-        'UpdateStatus',
-        'EmailAuthToken',
-        'sku_project',
-        'rakutenPlan',
-        'trial',
-        'shopName',
-        'shopUrl',
-        'serviceSecret',
-        'licenseKey'
     ];
 
     public function info()
     {
         return $this->hasMany(Info::class);
-    }
-
-    public function image()
-    {
-        return $this->hasMany(Image::class);
-    }
-
-    public function wordConfig()
-    {
-        return $this->hasMany(WordConfig::class);
-    }
-
-    public function cabinet()
-    {
-        return $this->hasMany(Cabinet::class);
-    }
-
-    public function bigBanner()
-    {
-        return $this->hasMany(BigBanner::class);
-    }
-
-    public function error()
-    {
-        return $this->hasMany(Error::class);
-    }
-
-    public function alert()
-    {
-        return $this->hasMany(Alert::class);
-    }
-
-    public function setting()
-    {
-        return $this->hasMany(Setting::class);
-    }
-
-    public function order()
-    {
-        return $this->hasMany(Order::class);
     }
 
     public function getRouteKeyName()

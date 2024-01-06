@@ -17,15 +17,11 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'company' => '有限会社リライズ',
-                'name' => 'seeder',
-                'email' => 'a@a.com',
-                'tel' => '',
+                'name' => '管理人',
+                'email' => 'sakurai1991@gmail.com',
                 'password' => Hash::make('testtest'),
                 'terms' => '1',
                 'Authority' => 'admin',
-                'trial' => 0,
-                'get_limit' => config('limit.basic_get')
             ],
         ]);
     }

@@ -25,23 +25,7 @@ class TestController extends BaseController
 
     public function index()
     {
-        // 文章
-        $sentence = '水';
-
-        // ChatGPT API処理
-        $name = '料理';
-        $answer = 'そば';
-
-        $chat_response = chatGptService::store("{$name}名前当てクイズアプリ用途目的です。正解は「{$answer}」です。「はい」または「いいえ」で答えて下さい。回答で着ない場合は「回答不可」", $sentence);
-
-        if (strstr($chat_response, 'はい') !== false) {
-            $result = "はい";
-        } else if (strstr($chat_response, 'いいえ') !== false) {
-            $result = "いいえ";
-        } else {
-            $result = "回答できません";
-        }
-        dd($result);
+        dd(Auth::id());
     }
 
     //id（数値）がキャストされない連想配列の生成

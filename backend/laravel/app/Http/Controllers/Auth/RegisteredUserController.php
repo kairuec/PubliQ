@@ -42,10 +42,6 @@ class RegisteredUserController extends Controller
                 'rakutenPlan' => $request['rakutenPlan'],
             ]);
 
-            Setting::create([
-                'user_id' => $user->id,
-                'cabinetFolderCreate' => false
-            ]);
             DB::commit();
         } catch (Exception $e) {
             Log::error($e);

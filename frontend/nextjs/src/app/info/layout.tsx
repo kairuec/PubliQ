@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SideMenu } from "@/components/SideMenu";
+import { Logo } from "../../components/Logo";
 
 export default function InfoLayout({
   children,
@@ -21,11 +22,7 @@ export default function InfoLayout({
   return (
     <div className={`max-w-7xl mx-auto text-gray-800 leading-8`}>
       <header className="flex items-center justify-between py-6 px-4 md:px-0">
-        <h1 className=" text-3xl font-bold">
-          <Link href="/">
-            Publi<span className="text-amber-500">Q</span>
-          </Link>
-        </h1>
+        <Logo />
         <ul className="flex items-center gap-6">
           <li>
             <SideMenu />
