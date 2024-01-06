@@ -103,7 +103,7 @@ export const Chat = () => {
         <ul className="space-y-10 mb-[300px]">
           <li className="zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]">
             <h3 className="flex items-center gap-2">
-              <Image src="/publiq.png" alt="logo" width={35} height={35} />
+              <Image src="/publiq.png" alt="logo" width={30} height={30} />
               <b className="text-lg">システム</b>
             </h3>
             <p>私に質問をして正解を当てて下さい。</p>
@@ -111,7 +111,7 @@ export const Chat = () => {
           </li>
           <li className="zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]">
             <h3 className="flex items-center gap-2">
-              <Image src="/publiq.png" alt="logo" width={35} height={35} />
+              <Image src="/publiq.png" alt="logo" width={30} height={30} />
               <b className="text-lg">システム</b>
             </h3>
             <p>正解を回答する場合は「正解は〇〇？」と聞いてください。</p>
@@ -119,7 +119,7 @@ export const Chat = () => {
           </li>
           <li className="zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]">
             <h3 className="flex items-center gap-2">
-              <Image src="/publiq.png" alt="logo" width={35} height={35} />
+              <Image src="/publiq.png" alt="logo" width={30} height={30} />
               <b className="text-lg">システム</b>
             </h3>
             <p>
@@ -151,8 +151,8 @@ export const Chat = () => {
                       <Image
                         src="/publiq.png"
                         alt="logo"
-                        width={35}
-                        height={35}
+                        width={30}
+                        height={30}
                       />
                       <b className="text-lg">システム</b>
                     </h3>

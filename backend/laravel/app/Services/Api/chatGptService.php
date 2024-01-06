@@ -11,7 +11,6 @@ class chatGptService
 {
     public static function store($system, $user)
     {
-        Log::info($system);
         // ChatGPT APIのエンドポイントURL
         $url = "https://api.openai.com/v1/chat/completions";
 
@@ -39,7 +38,7 @@ class chatGptService
             ]
         );
 
-        $data['max_tokens'] = 30;
+        $data['max_tokens'] = 1;
 
         $response = Http::withHeaders($headers)->post($url, $data);
 

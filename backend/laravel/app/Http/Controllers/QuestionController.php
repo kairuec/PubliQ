@@ -32,21 +32,6 @@ class QuestionController extends Controller
         $answer = $request->answer;
         $sentence = $request->sentence;
 
-        // $prompt = <<<EOD
-        // クイズの判定の役割をお願いします。
-        // #お題
-        // {$genre}
-        // #正解のワード
-        // {$answer}
-        // #クイズ概要
-        // 正解のワードを当てるためにあなたに質問をします。
-        // 質問に対して「はい」または「いいえ」でお答えください。
-        // ユーザーの回答が正解の場合は「正解！」とお答えください。
-        // ひらがな、カタカナ、漢字、ローマ字の表記違いは判別しないでください。
-        // 例 正解が「トヨタ」の場合、「TOYOTA」「豊田」「とよた」は全て正解に
-        // EOD;
-        // $chat_response = chatGptService::store($prompt, $sentence . "?");
-
         if (preg_match("/正解|せいかい|答え|こたえ/", $sentence)) {
             $mode = "quiz";
         } else {
@@ -61,8 +46,8 @@ class QuestionController extends Controller
             #正解のワード
             {$answer}
             #お願いしたい事
-            ユーザーの回答が正解の場合は「正解！」とお答えください。
-            違っていた場合は「違う！」と答えてください。
+            ユーザーの回答が正解の場合は「correct」とお答えください。
+            違っていた場合は「incorrect」と答えてください。
             ひらがな、カタカナ、漢字、ローマ字の表記違いは判別しないでください。
             例 正解が「トヨタ」の場合、「TOYOTA」「豊田」「とよた」は全て正解に
             EOD;
@@ -71,16 +56,19 @@ class QuestionController extends Controller
 
         if ($mode == 'question') {
             $prompt = <<<EOD
-            「はい」か「いいえ」で答えてください。
+            「yes」か「no」で答えてください。
+            質問の意味が理解できなかったら「no」と答えてください。
             EOD;
             $chat_response = chatGptService::store($prompt, $answer . 'は' . $sentence . "?");
         }
 
-        if (strstr($chat_response, '正解！') !== false) {
+        Log::info($chat_response);
+
+        if (strstr($chat_response, 'correct') !== false) {
             $result = "正解！";
-        } else if (strstr($chat_response, '違う！') !== false) {
+        } else if (strstr($chat_response, 'incorrect') !== false) {
             $result = "違う！";
-        } else if (strstr($chat_response, 'はい') !== false) {
+        } else if (strstr($chat_response, 'yes') !== false) {
             $result = "はい";
         } else {
             $result = "いいえ";

@@ -57,7 +57,7 @@ export const SendForm = () => {
       onSubmit={handleSubmit}
       className="fixed bottom-0 md:bottom-4 p-2 bg-gray-100 opacity-95 mx-auto w-full xl:w-[1280px]"
     >
-      <p className="text-red-700 text-sm p-4">{errors.sentence}</p>
+      <p className="text-red-700 text-sm">{errors.sentence}</p>
       {!isLoading && !isQuestionLoading && (
         <div className="flex items-center justify-center gap-4 mx-auto">
           <input

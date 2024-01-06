@@ -95,7 +95,7 @@ export function Create() {
                 </p>
               </div>
               <FormControl>
-                <Input placeholder="麺類" {...field} />
+                <Input placeholder="麺類　できるだけ具体的に" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -124,9 +124,12 @@ export function Create() {
           name="hint"
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center justify-between">
-                <FormLabel>ヒント※任意</FormLabel>
-              </div>
+              <FormLabel className="flex items-center">
+                ヒント
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
+                  任意
+                </span>
+              </FormLabel>
               <FormControl>
                 <Input placeholder="和食" {...field} />
               </FormControl>
@@ -139,9 +142,12 @@ export function Create() {
           name="failWord1"
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center justify-between">
-                <FormLabel>地雷ワード1※任意</FormLabel>
-              </div>
+              <FormLabel className="flex items-center">
+                地雷ワード1
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
+                  任意
+                </span>
+              </FormLabel>
               <FormControl>
                 <Input placeholder="うどん" {...field} />
               </FormControl>
@@ -154,9 +160,12 @@ export function Create() {
           name="failWord2"
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center justify-between">
-                <FormLabel>地雷ワード2※任意</FormLabel>
-              </div>
+              <FormLabel className="flex items-center">
+                地雷ワード2
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
+                  任意
+                </span>
+              </FormLabel>
               <FormControl>
                 <Input placeholder="ラーメン" {...field} />
               </FormControl>
@@ -169,9 +178,12 @@ export function Create() {
           name="failWord3"
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center justify-between">
-                <FormLabel>地雷ワード3※任意</FormLabel>
-              </div>
+              <FormLabel className="flex items-center">
+                地雷ワード3
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
+                  任意
+                </span>
+              </FormLabel>
               <FormControl>
                 <Input placeholder="パスタ" {...field} />
               </FormControl>
