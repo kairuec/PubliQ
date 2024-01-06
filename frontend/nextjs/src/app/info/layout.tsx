@@ -22,7 +22,7 @@ export default function InfoLayout({
     <div className={`max-w-7xl mx-auto text-gray-800 leading-8`}>
       <header className="flex items-center justify-between py-6 px-4 md:px-0">
         <h1 className=" text-3xl font-bold">
-          <Link href="/blog">
+          <Link href="/">
             Publi<span className="text-amber-500">Q</span>
           </Link>
         </h1>
@@ -40,7 +40,7 @@ export default function InfoLayout({
           </li>
         </ul>
       </header>
-      <main className="mt-4 min-h-[75vh]">{children}</main>
+      <main className="mt-4 min-h-[80vh]">{children}</main>
       <footer className="md:flex md:items-center md:justify-between py-4 md::p-0 md:pb-10 mt-6 mx-auto">
         <ul className="flex items-center flex-wrap mb-6 md:mb-0 px-4 md:px-0 gap-4 md:gap-6">
           <li>

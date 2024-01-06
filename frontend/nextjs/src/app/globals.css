@@ -137,3 +137,9 @@ body {
 .you_died {
   font-family: "Times New Roman", Times, serif;
 }
+
+@media (max-width: 768px) {
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+}

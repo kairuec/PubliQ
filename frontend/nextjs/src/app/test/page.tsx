@@ -1,36 +1,42 @@
 "use client";
+
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 export default function Sample() {
   const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const reCaptchaVerify = async (address: string): Promise<boolean> => {
-    if (!executeRecaptcha) {
-      return false;
+  const onSubmit = async () => {
+    try {
+      if (executeRecaptcha) {
+        const token = await executeRecaptcha("contactPage");
+
+        // トークンをサーバーに送信
+        const response = await fetch("/api/recaptcha", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token }),
+        });
+
+        if (!response.ok) {
+          // サーバーからエラーレスポンスが返ってきた場合
+          const errorText = await response.text();
+          throw new Error(`サーバーエラー: ${response.status}, ${errorText}`);
+        }
+
+        // 成功時の処理
+        const res = await response.json();
+        console.log(res.responceJsonRecaptcha.success);
+      }
+    } catch (error) {
+      // エラーハンドリング
+      console.error(
+        "エラーが発生しました:",
+        error instanceof Error ? error.message : "Unknown error"
+      );
     }
-
-    // executeRecaptcha内の文字列は任意
-    const recaptchaToken = await executeRecaptcha("wallet");
-
-    // reCaptchaの検証を行うバックエンドAPIリクエスト（仮定）
-    const responseReCaptchaVerify = await reCaptchaVerifyBackend(
-      address,
-      recaptchaToken
-    );
-
-    console.log(
-      `responseReCaptchaVerify: ${JSON.stringify(responseReCaptchaVerify)}`
-    );
-
-    return responseReCaptchaVerify.success;
   };
 
-  return <button>再生</button>;
-}
-
-// 仮定: バックエンドの reCaptcha 検証関数
-async function reCaptchaVerifyBackend(address: string, recaptchaToken: string) {
-  // ここに実際のバックエンドの処理を追加
-  // 仮に成功とするレスポンスを返す
-  return { success: true };
+  return <button onClick={onSubmit}>再生</button>;
 }

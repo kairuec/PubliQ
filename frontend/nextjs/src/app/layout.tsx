@@ -1,8 +1,6 @@
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
-import { RecoilRoot } from "recoil";
 import RecoilProvider from "./recoilProvider";
-import { Metadata } from "next";
 
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
