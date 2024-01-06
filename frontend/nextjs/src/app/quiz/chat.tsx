@@ -161,7 +161,7 @@ export const Chat = () => {
                     {!chat.message.includes("正解") && <Hint />}
                     {chat.message.includes("正解") && (
                       <>
-                        <p>正解：{question.answer}</p>
+                        <p>正解ワード：{question.answer}</p>
                         <p>
                           地雷ワード：
                           {question.failWord1 != "" && `${question.failWord1}`}

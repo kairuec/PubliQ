@@ -244,6 +244,14 @@ export function Result() {
           </FacebookShareButton>
         </div>
       </div>
+      <section className="flex justify-center">
+        <button
+          onClick={() => setCreateUrl("")}
+          className="p-4 rounded-md bg-gray-900 text-white hover:text-amber-500 duration-150"
+        >
+          別の問題を作る
+        </button>
+      </section>
     </section>
   );
 }
