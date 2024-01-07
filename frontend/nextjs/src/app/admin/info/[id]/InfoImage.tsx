@@ -10,7 +10,7 @@ import { Pagination } from '@/components/Pagination';
 import { useInfo } from '@/hooks/Info';
 import { useImage } from '@/validation/Image';
 import { useSearch } from '@/hooks/Search';
-import { useLaravelApi } from '@/hooks/laravelApi';
+import { useLaravelApi } from '@/hooks/LaravelApi';
 import { useCheckbox } from '@/hooks/Checkbox';
 
 interface InfoImageProps {

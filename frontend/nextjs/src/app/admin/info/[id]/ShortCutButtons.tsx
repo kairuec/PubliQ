@@ -59,7 +59,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
         <Tooltip content="画像の挿入">
           <li
             onClick={() => setGetImage((prev) => ({ ...prev, mode: 'content', index: index }))}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center cursor-pointer"
           >
             <PhotoIcon className="w-6 h-6 mx-auto" />
           </li>
@@ -69,7 +69,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'table');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center cursor-pointer"
           >
             <TableCellsIcon className="w-6 h-6 mx-auto" />
           </li>
@@ -79,7 +79,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'h3');
             }}
-            className="bg-white rounded border-2 border-gray-200 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center justify-center cursor-pointer"
           >
             h3
           </li>
@@ -89,7 +89,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'a');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center justify-center cursor-pointer"
           >
             a
           </li>
@@ -99,7 +99,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'b');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center justify-center cursor-pointer"
           >
             b
           </li>
@@ -109,7 +109,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'ul');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center justify-center cursor-pointer"
           >
             ul
           </li>
@@ -119,7 +119,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'ol');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center justify-center cursor-pointer"
           >
             ol
           </li>
@@ -129,7 +129,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'quote');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center justify-center cursor-pointer"
           >
             ❞
           </li>
@@ -139,7 +139,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'code');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center cursor-pointer"
           >
             <CodeBracketIcon className="w-6 h-6 mx-auto" />
           </li>
@@ -149,7 +149,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'message');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center cursor-pointer"
           >
             <ExclamationCircleIcon className="w-6 h-6 mx-auto text-amber-300" />
           </li>
@@ -159,7 +159,7 @@ export default function ShortCutButtons(parentProps: { index: number }) {
             onClick={() => {
               addText(index, 'alert');
             }}
-            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] cursor-pointer"
+            className="bg-white rounded border-2 border-gray-200 hover:border-blue-400 duration-75 text-gray-600 p-2 text-center w-[50px] h-[50px] flex items-center cursor-pointer"
           >
             <ExclamationCircleIcon className="w-6 h-6 mx-auto text-red-300" />
           </li>

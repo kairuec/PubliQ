@@ -40,10 +40,4 @@ class Info extends Model
     {
         return $this->hasMany(ChildInfo::class);
     }
-
-    public function scopeSearchKeyword($query, $keyword)
-    {
-        return $query->where('infos.title', 'like', '%' . $keyword . '%')
-            ->orWhere('infos.content', 'like', '%' . $keyword . '%');
-    }
 }
