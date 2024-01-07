@@ -25,6 +25,7 @@ class TestController extends BaseController
 
     public function index()
     {
+        return response()->json(['element' => 'info', 'message' => '定型文を保存しました。'], 200);
         dd(Auth::id());
     }
 
