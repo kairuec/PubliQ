@@ -48,7 +48,7 @@ const page = ({ params }: { params: { id: number } }) => {
       };
       const res = await axios.post('/api/infoEdit/store', submit);
       // 成功時のページ遷移を行う
-      router.push('/admin/blog');
+      router.push('/admin/info');
     } catch (error) {
       // エラーハンドリングを追加
     } finally {
@@ -83,7 +83,7 @@ const page = ({ params }: { params: { id: number } }) => {
             </section>
           </div>
         </section>
-        <section className="mx-10">
+        <section className="mx-2">
           <ShortCutButtons index={editIndex} />
         </section>
       </article>

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import { useLaravelApi } from '@/hooks/laravelApi';
+import { useLaravelApi } from '@/hooks/LaravelApi';
 import { useSearchParams } from 'next/navigation';
 
 interface PaginationProps {
@@ -48,7 +48,7 @@ export function Pagination(props: PaginationProps) {
                   }
                 >
                   {i}
-                </button>,
+                </button>
               );
             }
             return <>{items}</>;

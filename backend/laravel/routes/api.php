@@ -48,6 +48,14 @@ Route::prefix('question')->middleware(['throttle:100,1'])->group(function () {
     Route::post('createQuestion', [QuestionController::class, 'createQuestion']);
 });
 
+//投稿
+Route::prefix('info')->group(function () {
+    Route::post('index', [InfoController::class, 'index']);
+    // Route::post('urls', [InfoController::class, 'urls']);
+    Route::get('{url}', [InfoController::class, 'show']);
+    // Route::get('build', [InfoController::class, 'build']);
+});
+
 //投稿編集
 Route::prefix('infoEdit')->middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::post('index', [InfoEditController::class, 'index']);

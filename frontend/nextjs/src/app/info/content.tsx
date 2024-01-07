@@ -6,12 +6,9 @@ import parse from 'html-react-parser';
 import { MagnifyingGlassIcon, ClockIcon, TagIcon } from '@heroicons/react/24/outline';
 import { BreadCrumb } from '@/components/BreadCrumb';
 import Link from 'next/link';
-import { configAtoms } from '@/recoil/configAtoms';
-import { useRecoilState } from 'recoil';
 
 export function InfoContent(props: { getData: InfoFetch }) {
   const { getData } = props;
-  const [config] = useRecoilState(configAtoms);
 
   //目次（ページ位置により、見出しを強調）
   const [activeSection, setActiveSection] = useState('');
@@ -95,7 +92,7 @@ export function InfoContent(props: { getData: InfoFetch }) {
               );
             })}
         </main>
-        <aside className="md:w-1/4">{mokuji()}</aside>
+        <aside className="hidden md:block md:w-1/4">{mokuji()}</aside>
       </div>
     </>
   );

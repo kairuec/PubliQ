@@ -8,7 +8,7 @@ import { Pagination } from '@/components/Pagination';
 import Link from 'next/link';
 import { configAtoms } from '@/recoil/configAtoms';
 import { useRecoilState } from 'recoil';
-import { useLaravelApi } from '@/hooks/laravelApi';
+import { useLaravelApi } from '@/hooks/LaravelApi';
 import { useSearch } from '@/hooks/Search';
 
 interface WordConfigItem {
