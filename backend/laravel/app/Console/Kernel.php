@@ -16,9 +16,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //注文金額変更機能
-        $schedule->command('batch:AutoOrder')->withoutOverlapping()->everyMinute();
+        // $schedule->command('batch:AutoOrder')->withoutOverlapping()->everyMinute();
         //API有効期限切れのユーザーに通知
-        $schedule->command('batch:Expiration')->dailyAt('03:00');
+        // $schedule->command('batch:Expiration')->dailyAt('03:00');
     }
 
     /**
