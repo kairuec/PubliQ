@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\InfoEditController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,20 @@ Route::prefix('question')->middleware(['throttle:100,1'])->group(function () {
     Route::post('store', [QuestionController::class, 'store']);
     Route::post('review', [QuestionController::class, 'review']);
     Route::post('createQuestion', [QuestionController::class, 'createQuestion']);
+});
+
+//投稿編集
+Route::prefix('infoEdit')->middleware(['auth:sanctum', 'can:admin'])->group(function () {
+    Route::post('index', [InfoEditController::class, 'index']);
+    Route::post('store', [InfoEditController::class, 'store']);
+    Route::post('delete', [InfoEditController::class, 'delete']);
+    Route::post('images', [InfoEditController::class, 'images']);
+    Route::post('imageDelete', [InfoEditController::class, 'imageDelete']);
+    Route::post('postFiles', [InfoEditController::class, 'postFile']);
+    Route::post('wordConfigIndex', [InfoEditController::class, 'wordConfigIndex']);
+    Route::post('wordConfigStore', [InfoEditController::class, 'wordConfigStore']);
+    Route::get('wordConfigCommon', [InfoEditController::class, 'wordConfigCommon']);
+    Route::get('{id}', [InfoEditController::class, 'show']);
 });
 
 //テスト

@@ -160,26 +160,26 @@ class InfoEditController extends Controller
 
         $user_id = Auth::id();
 
-        $url =$request['main']['url'];
-        if(empty($url)){
-            $url =Str::random(10);
+        $url = $request['main']['url'];
+        if (empty($url)) {
+            $url = Str::random(10);
         }
 
-        $mainRequest =[
+        $mainRequest = [
             'id' => $request['main']['id'],
-            'user_id' =>$user_id,
-            'url' =>$url,
-            'title' =>$request['main']['title'],
-            'description' =>$request['main']['description'],
-            'content' =>$request['main']['content'],
-            'image' =>$request['main']['image'],
-            'noindex' =>$request['main']['noindex'],
-            'public' =>$request['main']['public'],
+            'user_id' => $user_id,
+            'url' => $url,
+            'title' => $request['main']['title'],
+            'description' => $request['main']['description'],
+            'content' => $request['main']['content'],
+            'image' => $request['main']['image'],
+            'noindex' => $request['main']['noindex'],
+            'public' => $request['main']['public'],
         ];
 
         $childRequests = $request['childs'];
 
-        $noEmptyChildRequests = array_filter($childRequests, function($childRequest) {
+        $noEmptyChildRequests = array_filter($childRequests, function ($childRequest) {
             return $childRequest['child_title'] !== '' || $childRequest['child_content'] !== '';
         });
 
@@ -219,17 +219,17 @@ class InfoEditController extends Controller
             }
             // //記事とタグの紐づけ
             $info->tags()->sync($tag->id);
-            
 
-            if(!empty($noEmptyChildRequests)){
-            //親のinfo_idを子に割り振る idは作り直すためnullに
-            $childInIds = [];
-            foreach ($noEmptyChildRequests as $child) {
-                $childInIds[] = [...$child, 'id' => null, 'info_id' => $info->id];
+
+            if (!empty($noEmptyChildRequests)) {
+                //親のinfo_idを子に割り振る idは作り直すためnullに
+                $childInIds = [];
+                foreach ($noEmptyChildRequests as $child) {
+                    $childInIds[] = [...$child, 'id' => null, 'info_id' => $info->id];
+                }
+                //子記事の登録
+                ChildInfo::upsert($childInIds, ['id']);
             }
-            //子記事の登録
-            ChildInfo::upsert($childInIds, ['id']);
-        }
 
             DB::commit();
         } catch (Exception $e) {
@@ -279,5 +279,27 @@ class InfoEditController extends Controller
         }
         WordConfig::upsert($wordConfigs, 'user_id');
         return response()->json(['element' => 'info', 'message' => 'コンフィグ文を更新しました。'], 200);
+    }
+
+    public function wordConfigStore(Request $request)
+    {
+        $user_id = Auth::id();
+        $requests = $request->all();
+        $wordConfigs = [];
+        foreach ($requests as $wordConfig) {
+            $wordConfig = array_merge($wordConfig, ['user_id' => $user_id]);
+            $wordConfigs[] = $wordConfig;
+        }
+        try {
+            DB::beginTransaction();
+            //データベースに登録
+            WordConfig::upsert($wordConfigs, ['id']);
+            DB::commit();
+        } catch (Exception $e) {
+            Log::error($e);
+            DB::rollback();
+            return back()->withInput();
+        }
+        return response()->json(['element' => 'info', 'message' => '定型文を保存しました。'], 200);
     }
 }

@@ -50,9 +50,6 @@ export default function Login() {
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
       <div className="bg-gray-100">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
           <div className="mb-8 mr-4">
@@ -119,7 +116,6 @@ export default function Login() {
                     パスワードを忘れた方
                   </Link>
                 </div>
-
                 <div className="flex justify-center">
                   {isLoading && <Loading />}
                   {!isLoading && (
