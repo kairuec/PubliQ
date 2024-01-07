@@ -1,36 +1,26 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import axios, { csrf } from "@/lib/axios";
-import { Loading } from "@/components/Loading";
-import { useQuestion } from "@/hooks/Question";
-import Image from "next/image";
-import { useRecoilState } from "recoil";
-import { isLoadingState } from "@/recoil/isLoadingAtom";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import ThumbUpOffAlt from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import ThumbDownOffAlt from "@mui/icons-material/ThumbDownOffAlt";
-import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
-import { CreateForm } from "./createForm";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useChat } from "@/hooks/Chat";
-import { questionState } from "@/recoil/questionAtom";
-import useSound from "use-sound";
+import { useEffect, useRef, useState } from 'react';
+import axios, { csrf } from '@/lib/axios';
+import { Loading } from '@/components/Loading';
+import { useQuestion } from '@/hooks/Question';
+import Image from 'next/image';
+import { useRecoilState } from 'recoil';
+import { isLoadingState } from '@/recoil/isLoadingAtom';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpOffAlt from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import ThumbDownOffAlt from '@mui/icons-material/ThumbDownOffAlt';
+import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
+import { CreateForm } from './createForm';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useChat } from '@/hooks/Chat';
+import { questionState } from '@/recoil/questionAtom';
+import useSound from 'use-sound';
 
 export const Chat = () => {
-  const { question, isQuestionLoading, regenerateQuestion } = useQuestion();
+  const { question, isQuestionLoading, regenerateQuestion, tryChanceCount } = useQuestion();
   const { chats, setChats, request, setRequest } = useChat();
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -42,7 +32,7 @@ export const Chat = () => {
       const scrollToBottom = () => {
         if (contentRef.current) {
           contentRef.current.scrollIntoView({
-            behavior: "smooth",
+            behavior: 'smooth',
           });
         }
       };
@@ -63,10 +53,7 @@ export const Chat = () => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <AutorenewOutlinedIcon
-                    onClick={regenerateQuestion}
-                    className="w-6 h-6 -mt-1 mx-4 text-gray-400 hover:text-amber-500"
-                  />
+                  <AutorenewOutlinedIcon onClick={regenerateQuestion} className="w-6 h-6 -mt-1 mx-4 text-gray-400 hover:text-amber-500" />
                 </TooltipTrigger>
                 <TooltipContent>お題を変える</TooltipContent>
               </Tooltip>
@@ -122,21 +109,14 @@ export const Chat = () => {
               <Image src="/publiq.png" alt="logo" width={30} height={30} />
               <b className="text-lg">システム</b>
             </h3>
-            <p>
-              各お題にはチャット内に含まれていたら即ゲームオーバーになる「地雷ワード」が複数ございます。お気をつけ下さい。
-            </p>
+            <p>各お題にはチャット内に含まれていたら即ゲームオーバーになる「地雷ワード」が複数ございます。お気をつけ下さい。</p>
             <p>例：お題「麺類」</p>
             <p>正解：そば</p>
             <p>地雷ワード：うどん,ラーメン,パスタ</p>
           </li>
           {chats.map((chat, index) => {
             return (
-              <li
-                className={`${chat.isUser && "ml-auto"} ${
-                  chat.message == "" && "hidden"
-                } zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]`}
-                key={index}
-              >
+              <li className={`${chat.isUser && 'ml-auto'} ${chat.message == '' && 'hidden'} zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]`} key={index}>
                 {chat.isUser && (
                   <>
                     <h3 className="flex items-center gap-2">
@@ -148,32 +128,25 @@ export const Chat = () => {
                 {!chat.isUser && (
                   <>
                     <h3 className="flex items-center gap-2">
-                      <Image
-                        src="/publiq.png"
-                        alt="logo"
-                        width={30}
-                        height={30}
-                      />
+                      <Image src="/publiq.png" alt="logo" width={30} height={30} />
                       <b className="text-lg">システム</b>
                     </h3>
 
                     <p>{chat.message}</p>
-                    {!chat.message.includes("正解") && <Hint />}
-                    {chat.message.includes("正解") && (
+                    {chat.message.includes('違う') && <p>残り{tryChanceCount}回間違えるとゲームオーバーです。</p>}
+                    {!chat.message.includes('正解') && <Hint />}
+                    {chat.message.includes('正解') && (
                       <>
                         <p>正解ワード：{question.answer}</p>
                         <p>
                           地雷ワード：
-                          {question.failWord1 != "" && `${question.failWord1}`}
-                          {question.failWord2 != "" && `,${question.failWord2}`}
-                          {question.failWord3 != "" && `,${question.failWord3}`}
+                          {question.failWord1 != '' && `${question.failWord1}`}
+                          {question.failWord2 != '' && `,${question.failWord2}`}
+                          {question.failWord3 != '' && `,${question.failWord3}`}
                         </p>
                         <Review />
                         <section className="flex items-center gap-4">
-                          <button
-                            onClick={regenerateQuestion}
-                            className="px-4 py-2 rounded-md  bg-gray-900 text-white hover:text-amber-500 duration-150"
-                          >
+                          <button onClick={regenerateQuestion} className="px-4 py-2 rounded-md  bg-gray-900 text-white hover:text-amber-500 duration-150">
                             別の問題に挑戦
                           </button>
                           <CreateForm />
@@ -196,13 +169,13 @@ export const Chat = () => {
 
 export function ChatSound(props: { result: string }) {
   const { result } = props;
-  const [playSuccess] = useSound("/sounds/クイズ正解2.mp3");
-  const [playChat] = useSound("/sounds/決定ボタンを押す2.mp3");
+  const [playSuccess] = useSound('/sounds/クイズ正解2.mp3');
+  const [playChat] = useSound('/sounds/決定ボタンを押す2.mp3');
 
   useEffect(() => {
-    if (result == "正解！") {
+    if (result == '正解！') {
       playSuccess();
-    } else if (result != "") {
+    } else if (result != '') {
       playChat();
     }
   }, [playSuccess, playChat, result]);
@@ -252,7 +225,7 @@ export function Hint() {
           <span className="text-gray-300 mx-2">ヒント</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          {question.hint != "" && (
+          {question.hint != '' && (
             <DropdownMenuItem>
               <button onClick={hintWord} className="py-2">
                 出題者が作ったヒント
@@ -283,7 +256,7 @@ export function Review() {
   const sendGood = () => {
     if (!isBad) {
       setIsGood(true);
-      sendReview("good");
+      sendReview('good');
     }
   };
 
@@ -291,7 +264,7 @@ export function Review() {
   const sendBad = () => {
     if (!isGood) {
       setIsBad(true);
-      sendReview("bad");
+      sendReview('bad');
     }
   };
 
@@ -299,11 +272,9 @@ export function Review() {
 
   const sendReview = async (request: string) => {
     await csrf();
-    axios
-      .post(`/api/question/review`, { id: question.id, review: request })
-      .catch((error) => {
-        if (error.response.status !== 422) throw error;
-      });
+    axios.post(`/api/question/review`, { id: question.id, review: request }).catch((error) => {
+      if (error.response.status !== 422) throw error;
+    });
   };
 
   return (
@@ -311,31 +282,13 @@ export function Review() {
       お題の評価：
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>
-            {isGood ? (
-              <ThumbUpAltIcon className="h-7 w-7" />
-            ) : (
-              <ThumbUpOffAlt
-                onClick={sendGood}
-                className="h-7 w-7 cursor-pointer"
-              />
-            )}
-          </TooltipTrigger>
+          <TooltipTrigger>{isGood ? <ThumbUpAltIcon className="h-7 w-7" /> : <ThumbUpOffAlt onClick={sendGood} className="h-7 w-7 cursor-pointer" />}</TooltipTrigger>
           <TooltipContent>高評価</TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>
-            {isBad ? (
-              <ThumbDownAltIcon className="h-7 w-7" />
-            ) : (
-              <ThumbDownOffAlt
-                onClick={sendBad}
-                className="h-7 w-7 cursor-pointer"
-              />
-            )}
-          </TooltipTrigger>
+          <TooltipTrigger>{isBad ? <ThumbDownAltIcon className="h-7 w-7" /> : <ThumbDownOffAlt onClick={sendBad} className="h-7 w-7 cursor-pointer" />}</TooltipTrigger>
           <TooltipContent>低評価</TooltipContent>
         </Tooltip>
       </TooltipProvider>

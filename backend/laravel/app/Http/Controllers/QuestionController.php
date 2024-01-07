@@ -47,7 +47,7 @@ class QuestionController extends Controller
             {$answer}
             #お願いしたい事
             ユーザーの回答が正解の場合は「correct」とお答えください。
-            違っていた場合は「incorrect」と答えてください。
+            違っていた場合は「different」と答えてください。
             ひらがな、カタカナ、漢字、ローマ字の表記違いは判別しないでください。
             例 正解が「トヨタ」の場合、「TOYOTA」「豊田」「とよた」は全て正解に
             EOD;
@@ -66,7 +66,7 @@ class QuestionController extends Controller
 
         if (strstr($chat_response, 'correct') !== false) {
             $result = "正解！";
-        } else if (strstr($chat_response, 'incorrect') !== false) {
+        } else if (strstr($chat_response, 'different') !== false) {
             $result = "違う！";
         } else if (strstr($chat_response, 'yes') !== false) {
             $result = "はい";

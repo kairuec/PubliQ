@@ -1,14 +1,10 @@
-import axios, { csrf } from "@/lib/axios";
-import { chatState, requestState } from "@/recoil/chatAtom";
-import {
-  isFailState,
-  questionState,
-  tryChanceStateCount,
-} from "@/recoil/questionAtom";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import useSWR, { mutate } from "swr";
+import axios, { csrf } from '@/lib/axios';
+import { chatState, requestState } from '@/recoil/chatAtom';
+import { isFailState, questionState, tryChanceStateCount } from '@/recoil/questionAtom';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import useSWR, { mutate } from 'swr';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 export const useQuestion = () => {
@@ -16,8 +12,7 @@ export const useQuestion = () => {
   const [chats, setChats] = useRecoilState(chatState);
   const [isFail, setIsFail] = useRecoilState(isFailState);
 
-  const [tryChanceCount, setTryChaceCount] =
-    useRecoilState(tryChanceStateCount);
+  const [tryChanceCount, setTryChaceCount] = useRecoilState(tryChanceStateCount);
 
   useEffect(() => {
     if (tryChanceCount == 0) {
@@ -29,16 +24,7 @@ export const useQuestion = () => {
   const searchParams = useSearchParams();
 
   //問題をフェッチする処理
-  const {
-    data,
-    error: questionError,
-    isLoading: isQuestionLoading,
-  } = useSWR(
-    searchParams.get("id") == null
-      ? "/api/question/random"
-      : `/api/question/show?id=${searchParams.get("id")}`,
-    fetcher
-  );
+  const { data, error: questionError, isLoading: isQuestionLoading } = useSWR(searchParams.get('id') == null ? '/api/question/random' : `/api/question/show?id=${searchParams.get('id')}`, fetcher);
 
   useEffect(() => {
     if (data != undefined) {
@@ -48,7 +34,7 @@ export const useQuestion = () => {
     setChats([
       {
         isUser: true,
-        message: "",
+        message: '',
       },
     ]);
     //失敗カウント初期化
@@ -60,27 +46,22 @@ export const useQuestion = () => {
     if (questionError?.response?.status === 404) {
       // 404 エラーが発生した場合の処理をここに追加
       // 例: リダイレクトやエラーメッセージの表示など
-      router.push("404");
+      router.push('404');
     }
   }, [questionError, router]);
 
   //別の問題に変更
   const regenerateQuestion = () => {
-    if (searchParams.get("id") != null) {
-      router.push("/");
+    if (searchParams.get('id') != null) {
+      router.push('/');
     }
-    mutate("/api/question/random");
+    mutate('/api/question/random');
   };
 
-  const failWords = [
-    question.failWord1,
-    question.failWord2,
-    question.failWord3,
-  ];
+  const failWords = [question.failWord1, question.failWord2, question.failWord3];
 
   //地雷ワードが含まれているかチェック
-  const isContainsFailWord = (word: string): boolean =>
-    failWords.includes(word);
+  const isContainsFailWord = (word: string): boolean => failWords.some((failWord) => word.includes(failWord));
 
   return {
     question,
