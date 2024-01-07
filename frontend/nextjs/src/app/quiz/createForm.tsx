@@ -1,37 +1,20 @@
-import { useState } from "react";
-import axios, { csrf } from "@/lib/axios";
-import * as z from "zod";
-import { Loading } from "@/components/Loading";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  FacebookShareButton,
-  LineShareButton,
-  TwitterShareButton,
-} from "react-share";
+import { useState } from 'react';
+import axios, { csrf } from '@/lib/axios';
+import * as z from 'zod';
+import { Loading } from '@/components/Loading';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { FacebookShareButton, LineShareButton, TwitterShareButton } from 'react-share';
 
-import { FacebookIcon, LineIcon, XIcon } from "react-share";
-import Link from "next/link";
-import { useQuestion } from "@/hooks/Question";
-import { useCreateQuestionForm } from "@/validation/createQuestionForm";
-import { useRecoilState } from "recoil";
-import { createUrlState } from "@/recoil/questionAtom";
-import { useRecapcha } from "@/hooks/Recapcha";
+import { FacebookIcon, LineIcon, XIcon } from 'react-share';
+import Link from 'next/link';
+import { useQuestion } from '@/hooks/Question';
+import { useCreateQuestionForm } from '@/validation/createQuestionForm';
+import { useRecoilState } from 'recoil';
+import { createUrlState } from '@/recoil/questionAtom';
+import { useRecapcha } from '@/hooks/Recapcha';
+import { configAtoms } from '@/recoil/configAtoms';
 
 export const CreateForm = () => {
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
@@ -39,18 +22,12 @@ export const CreateForm = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="px-4 py-2 rounded-md  bg-gray-900 text-white hover:text-amber-500 duration-150">
-          問題を作る
-        </div>
+        <div className="px-4 py-2 rounded-md  bg-gray-900 text-white hover:text-amber-500 duration-150">問題を作る</div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {createUrl == "" ? "問題を作る" : "問題を作成しました"}
-          </DialogTitle>
-          <DialogDescription>
-            {createUrl == "" ? <Create /> : <Result />}
-          </DialogDescription>
+          <DialogTitle>{createUrl == '' ? '問題を作る' : '問題を作成しました'}</DialogTitle>
+          <DialogDescription>{createUrl == '' ? <Create /> : <Result />}</DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>
@@ -62,18 +39,19 @@ export function Create() {
   const { formVal, formSchema, countFull1half05 } = useCreateQuestionForm();
   const [isLoading, setIsLoading] = useState(false);
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
+  const [config] = useRecoilState(configAtoms);
   const { isRecapchaCheck, handleRecapcha } = useRecapcha();
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    await csrf();
 
     const post = async () => {
+      await csrf();
       axios
         .post(`/api/question/createQuestion`, { values })
         .then((res) => {
           // console.log(res.data);
-          setCreateUrl(`https://publiq.online/quiz?id=${res.data.id}`);
+          setCreateUrl(`${config.originalUrl}?id=${res.data.id}`);
           setIsLoading(false);
         })
         .catch((error) => {
@@ -89,10 +67,7 @@ export function Create() {
 
   return (
     <Form {...formVal}>
-      <form
-        onSubmit={formVal.handleSubmit(handleSubmit)}
-        className="space-y-8 mt-10 mx-6"
-      >
+      <form onSubmit={formVal.handleSubmit(handleSubmit)} className="space-y-8 mt-10 mx-6">
         <FormField
           control={formVal.control}
           name="genre"
@@ -100,9 +75,7 @@ export function Create() {
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>お題</FormLabel>
-                <p className="text-sm">
-                  {countFull1half05(formVal.watch("genre"))} / 20
-                </p>
+                <p className="text-sm">{countFull1half05(formVal.watch('genre'))} / 20</p>
               </div>
               <FormControl>
                 <Input placeholder="麺類　できるだけ具体的に" {...field} />
@@ -118,9 +91,7 @@ export function Create() {
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>正解</FormLabel>
-                <p className="text-sm">
-                  {countFull1half05(formVal.watch("answer"))} / 20
-                </p>
+                <p className="text-sm">{countFull1half05(formVal.watch('answer'))} / 20</p>
               </div>
               <FormControl>
                 <Input placeholder="そば" {...field} />
@@ -136,9 +107,7 @@ export function Create() {
             <FormItem>
               <FormLabel className="flex items-center">
                 ヒント
-                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
-                  任意
-                </span>
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">任意</span>
               </FormLabel>
               <FormControl>
                 <Input placeholder="和食" {...field} />
@@ -154,9 +123,7 @@ export function Create() {
             <FormItem>
               <FormLabel className="flex items-center">
                 地雷ワード1
-                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
-                  任意
-                </span>
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">任意</span>
               </FormLabel>
               <FormControl>
                 <Input placeholder="うどん" {...field} />
@@ -172,9 +139,7 @@ export function Create() {
             <FormItem>
               <FormLabel className="flex items-center">
                 地雷ワード2
-                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
-                  任意
-                </span>
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">任意</span>
               </FormLabel>
               <FormControl>
                 <Input placeholder="ラーメン" {...field} />
@@ -190,9 +155,7 @@ export function Create() {
             <FormItem>
               <FormLabel className="flex items-center">
                 地雷ワード3
-                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">
-                  任意
-                </span>
+                <span className="text-[10px] mx-2 p-1 mt-0.5 bg-gray-200 rounded-md">任意</span>
               </FormLabel>
               <FormControl>
                 <Input placeholder="パスタ" {...field} />
@@ -203,11 +166,7 @@ export function Create() {
         />
         <div className="flex justify-center">
           {isLoading && <Loading />}
-          {!isLoading && (
-            <button className="p-4 rounded-md bg-gray-900 text-white hover:text-amber-500 duration-150">
-              出題する
-            </button>
-          )}
+          {!isLoading && <button className="p-4 rounded-md bg-gray-900 text-white hover:text-amber-500 duration-150">出題する</button>}
         </div>
       </form>
     </Form>
@@ -223,10 +182,7 @@ export function Result() {
     <section className="space-y-8 px-4">
       <div className="mt-10 space-y-2">
         <p>作成した問題のURL</p>
-        <Link
-          href={createUrl}
-          className="p-4 rounded-md bg-neutral-200 hover:text-amber-500 duration-150 block"
-        >
+        <Link href={createUrl} className="p-4 rounded-md bg-neutral-200 hover:text-amber-500 duration-150 block">
           {createUrl}
         </Link>
       </div>
@@ -245,10 +201,7 @@ export function Result() {
         </div>
       </div>
       <section className="flex justify-center">
-        <button
-          onClick={() => setCreateUrl("")}
-          className="p-4 rounded-md bg-gray-900 text-white hover:text-amber-500 duration-150"
-        >
+        <button onClick={() => setCreateUrl('')} className="p-4 rounded-md bg-gray-900 text-white hover:text-amber-500 duration-150">
           別の問題を作る
         </button>
       </section>

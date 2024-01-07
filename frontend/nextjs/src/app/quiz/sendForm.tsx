@@ -33,9 +33,9 @@ export const SendForm = () => {
     }
     setIsLoading(true);
     e.preventDefault();
-    await csrf();
 
     const post = async () => {
+      await csrf();
       const res = await axios.post(`/api/question/store`, request);
       setRequest((prev) => ({ ...prev, sentence: '' }));
       addChats(res.data.result, false);
