@@ -78,7 +78,7 @@ class QuestionController extends Controller
 
     public function createQuestion(Request $request)
     {
-        // Log::info($request->values);
+        Log::info($request->values);
         $question = Question::create($request->values);
         return response()->json(['id' => $question->id], 200);
     }
