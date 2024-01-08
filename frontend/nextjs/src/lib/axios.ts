@@ -4,7 +4,7 @@ const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const instance = axios.create({
   withCredentials: true,
-  withXSRFToken: true, // これを追加
+  // withXSRFToken: true, // これを追加
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
   },
