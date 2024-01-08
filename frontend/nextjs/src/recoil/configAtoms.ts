@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const config = {
   serviseName: 'PubliQ',
-  originalUrl: 'https:/publiq.cloud',
+  originalUrl: 'https://publiq.cloud',
   nullName: 'PubliQ（パブリック）',
   helpTag: [{ name: 'お支払い', url: 'payments' }],
   blogTag: [{ name: 'お知らせ', url: 'news' }],
