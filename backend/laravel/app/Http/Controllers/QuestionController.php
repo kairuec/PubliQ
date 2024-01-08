@@ -56,10 +56,11 @@ class QuestionController extends Controller
 
         if ($mode == 'question') {
             $prompt = <<<EOD
+            {$genre}のクイズです。
             「yes」か「no」で答えてください。
             質問の意味が理解できなかったら「no」と答えてください。
             EOD;
-            $chat_response = chatGptService::store($prompt, $answer . 'は' . $sentence . "?");
+            $chat_response = chatGptService::store($prompt, "「{$answer}」は「{$sentence}」?");
         }
 
         Log::info($chat_response);
