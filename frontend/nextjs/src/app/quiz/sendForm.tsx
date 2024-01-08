@@ -28,9 +28,9 @@ export const SendForm = () => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     addChats(request.sentence, true);
     //地雷ワードチェック
-    if (isContainsFailWord(request.sentence)) {
-      setIsFail(true);
-    }
+    // if (isContainsFailWord(request.sentence)) {
+    //   setIsFail(true);
+    // }
     setIsLoading(true);
     e.preventDefault();
 
