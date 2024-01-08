@@ -59,7 +59,6 @@ export const useQuestion = () => {
   };
 
   const failWords = [question.failWord1, question.failWord2, question.failWord3];
-  console.log(failWords);
 
   //地雷ワードが含まれているかチェック
   const isContainsFailWord = (word: string): boolean => {
