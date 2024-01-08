@@ -11,6 +11,8 @@ class chatGptService
 {
     public static function store($system, $user)
     {
+        Log::info($system);
+        Log::info($user);
         // ChatGPT APIのエンドポイントURL
         $url = "https://api.openai.com/v1/chat/completions";
 
