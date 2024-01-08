@@ -62,7 +62,13 @@ export const useQuestion = () => {
   console.log(failWords);
 
   //地雷ワードが含まれているかチェック
-  const isContainsFailWord = (word: string): boolean => failWords.some((failWord) => word.includes(failWord));
+  const isContainsFailWord = (word: string): boolean => {
+    // failWordsが空の場合も考慮して判定
+    if (failWords.length === 0) {
+      return false;
+    }
+    return failWords.some((failWord) => failWord !== '' && word.includes(failWord));
+  };
 
   return {
     question,
