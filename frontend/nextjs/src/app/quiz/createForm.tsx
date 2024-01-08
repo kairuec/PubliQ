@@ -182,7 +182,7 @@ export function Result() {
     <section className="space-y-8 px-4">
       <div className="mt-10 space-y-2">
         <p>作成した問題のURL</p>
-        <Link href={createUrl} className="p-4 rounded-md bg-neutral-200 hover:text-amber-500 duration-150 block">
+        <Link href={createUrl} target="_blank" className="p-4 rounded-md bg-neutral-200 hover:text-amber-500 duration-150 block">
           {createUrl}
         </Link>
       </div>
