@@ -170,7 +170,7 @@ export const Chat = () => {
 export function ChatSound(props: { result: string }) {
   const { result } = props;
   const [playSuccess] = useSound('/sounds/クイズ正解2.mp3');
-  const [playChat] = useSound('/sounds/決定ボタンを押す2.mp3');
+  const [playChat] = useSound('/sounds/決定ボタンを押す.mp3');
 
   useEffect(() => {
     if (result == '正解！') {
