@@ -1,13 +1,6 @@
-import Link from "next/link";
-import { FaXTwitter } from "react-icons/fa6";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import Link from 'next/link';
+import { FaXTwitter } from 'react-icons/fa6';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 export function SideMenu() {
   return (
@@ -16,11 +9,7 @@ export function SideMenu() {
       <SheetContent>
         <ul className="pt-10 px-2 space-y-10">
           <li>
-            <Link
-              href="https://twitter.com/PubliQ_AI"
-              target="_blank"
-              className="flex items-center gap-2 hover:underline"
-            >
+            <Link href="https://twitter.com/PubliQ_AI" target="_blank" className="flex items-center gap-2 hover:underline">
               <span className="text-3xl">
                 <FaXTwitter />
               </span>
@@ -28,8 +17,8 @@ export function SideMenu() {
             </Link>
           </li>
           <li>PabliQ（パブリック）の遊び方</li>
-          <li>今後のロードマップ</li>
-          <li>広告主 募集中</li>
+          {/* <li>今後のロードマップ</li> */}
+          {/* <li>広告主 募集中</li> */}
           <li>
             <Link href="/contact" className="hover:underline">
               お問い合わせ

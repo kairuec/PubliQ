@@ -25,7 +25,7 @@ class QuestionController extends Controller
     public function random()
     {
         Log::info('fetch');
-        $question =Question::inRandomOrder()->first();
+        $question = Question::where('isPublic', true)->inRandomOrder()->first();
         $question->play += 1;
         $question->save();
         return $question;
@@ -55,8 +55,6 @@ class QuestionController extends Controller
             #お願いしたい事
             ユーザーの回答が正解の場合は「correct」とお答えください。
             違っていた場合は「different」と答えてください。
-            ひらがな、カタカナ、漢字、ローマ字の表記違いは判別しないでください。
-            例 正解が「トヨタ」の場合、「TOYOTA」「豊田」「とよた」は全て正解に
             EOD;
             $chat_response = chatGptService::store($prompt, "{$sentence}?");
         }
@@ -64,7 +62,7 @@ class QuestionController extends Controller
         if ($mode == 'question') {
             $prompt = <<<EOD
             「yes」か「no」で答えてください。
-            「yes」か「no」で答えられない場合は「unanswerable」と答えてください。
+            「yes」か「no」で答えられない場合は「unable」と答えてください。
             EOD;
             $chat_response = chatGptService::store($prompt, "「{$answer}」は{$sentence}?");
         }
@@ -75,11 +73,9 @@ class QuestionController extends Controller
             $result = "正解！";
         } else if (strstr($chat_response, 'different') !== false) {
             $result = "違う！";
-        } 
-        else if (strstr($chat_response, 'unanswerable') !== false) {
+        } else if (strstr($chat_response, 'unable') !== false) {
             $result = "回答できません";
-        } 
-        else if (strstr($chat_response, 'yes') !== false) {
+        } else if (strstr($chat_response, 'yes') !== false) {
             $result = "はい";
         } else {
             $result = "いいえ";

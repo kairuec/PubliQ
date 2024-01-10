@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { FacebookShareButton, LineShareButton, TwitterShareButton } from 'react-share';
-import { Checkbox } from '@/components/ui/checkbox';
+
 import { FacebookIcon, LineIcon, XIcon } from 'react-share';
 import Link from 'next/link';
 import { useQuestion } from '@/hooks/Question';
@@ -68,7 +68,7 @@ export function Create() {
 
   return (
     <Form {...formVal}>
-      <form onSubmit={formVal.handleSubmit(handleSubmit)} className="space-y-8 mt-10 mx-6">
+      <form onSubmit={formVal.handleSubmit(handleSubmit)} className="space-y-8 mt-10 mx-0 md:mx-6">
         <FormField
           control={formVal.control}
           name="genre"
@@ -170,9 +170,9 @@ export function Create() {
           name="isPublic"
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-              <div className="space-y-0.5">
+              <div className="space-y-0.5 text-left">
                 <FormLabel>{field.value ? '公開' : '限定公開'}</FormLabel>
-                <FormDescription>{field.value ? '作った問題がランダムに表示されます。' : 'リンクを知っているユーザーのみプレイできます'}</FormDescription>
+                <FormDescription>{field.value ? '作った問題が一般公開されます' : 'リンクを知るユーザーのみプレイできます'}</FormDescription>
               </div>
               <FormControl>
                 <Switch checked={field.value} onCheckedChange={field.onChange} />
