@@ -29,4 +29,10 @@ class Question extends Authenticatable
         'play',
         'isPublic',
     ];
+
+    protected $casts = [
+        'isPublic' => 'boolean',
+        'updated_at' => 'datetime:Y/m/d',
+    ];
+
 }
