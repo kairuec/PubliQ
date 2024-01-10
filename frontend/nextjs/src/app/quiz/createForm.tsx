@@ -3,7 +3,7 @@ import axios, { csrf } from '@/lib/axios';
 import * as z from 'zod';
 import { Loading } from '@/components/Loading';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { FacebookShareButton, LineShareButton, TwitterShareButton } from 'react-share';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -15,8 +15,7 @@ import { useRecoilState } from 'recoil';
 import { createUrlState } from '@/recoil/questionAtom';
 import { useRecapcha } from '@/hooks/Recapcha';
 import { configAtoms } from '@/recoil/configAtoms';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { TURBO_TRACE_DEFAULT_MEMORY_LIMIT } from 'next/dist/shared/lib/constants';
+import { Switch } from '@/components/ui/switch';
 
 export const CreateForm = () => {
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
@@ -170,25 +169,14 @@ export function Create() {
           control={formVal.control}
           name="isPublic"
           render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>公開設定</FormLabel>
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+              <div className="space-y-0.5">
+                <FormLabel>{field.value ? '公開' : '限定公開'}</FormLabel>
+                <FormDescription>{field.value ? '作った問題がランダムに表示されます。' : 'リンクを知っているユーザーのみプレイできます'}</FormDescription>
+              </div>
               <FormControl>
-                <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col space-y-1">
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="true" />
-                    </FormControl>
-                    <FormLabel className="font-normal">公開</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="false" />
-                    </FormControl>
-                    <FormLabel className="font-normal">限定公開</FormLabel>
-                  </FormItem>
-                </RadioGroup>
+                <Switch checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />

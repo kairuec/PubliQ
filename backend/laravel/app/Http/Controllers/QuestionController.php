@@ -90,7 +90,6 @@ class QuestionController extends Controller
     public function createQuestion(Request $request)
     {
         // Log::info($request->values);
-        $request->values['isPublic'] =boolval($request->values['isPublic']);
         $question = Question::create($request->values);
         return response()->json(['id' => $question->id], 200);
     }
