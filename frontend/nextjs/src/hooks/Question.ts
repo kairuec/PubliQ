@@ -24,7 +24,11 @@ export const useQuestion = () => {
   const searchParams = useSearchParams();
 
   //問題をフェッチする処理
-  const { data, error: questionError, isLoading: isQuestionLoading } = useSWR(searchParams.get('id') == null ? '/api/question/random' : `/api/question/show?id=${searchParams.get('id')}`, fetcher);
+  const {
+    data,
+    error: questionError,
+    isLoading: isQuestionLoading,
+  } = useSWR(searchParams.get('id') == null ? '/api/question/random' : `/api/question/show?id=${searchParams.get('id')}`, fetcher, { revalidateOnFocus: false });
 
   useEffect(() => {
     if (data != undefined) {

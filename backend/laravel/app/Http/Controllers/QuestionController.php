@@ -16,12 +16,19 @@ class QuestionController extends Controller
 {
     public function show(Request $request)
     {
-        return  Question::findOrFail($request->id);
+        $question = Question::findOrFail($request->id);
+        $question->play += 1;
+        $question->save();
+        return $question;
     }
 
     public function random()
     {
-        return Question::inRandomOrder()->first();
+        Log::info('fetch');
+        $question =Question::inRandomOrder()->first();
+        $question->play += 1;
+        $question->save();
+        return $question;
     }
 
     //ユーザーの設定変更
@@ -56,11 +63,10 @@ class QuestionController extends Controller
 
         if ($mode == 'question') {
             $prompt = <<<EOD
-            {$genre}のクイズです。
             「yes」か「no」で答えてください。
             「yes」か「no」で答えられない場合は「unanswerable」と答えてください。
             EOD;
-            $chat_response = chatGptService::store($prompt, "「{$answer}」は「{$sentence}」?");
+            $chat_response = chatGptService::store($prompt, "「{$answer}」は{$sentence}?");
         }
 
         Log::info($chat_response);

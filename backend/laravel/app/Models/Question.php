@@ -26,5 +26,7 @@ class Question extends Authenticatable
         'failWord3',
         'bad',
         'good',
+        'play',
+        'isPublic',
     ];
 }

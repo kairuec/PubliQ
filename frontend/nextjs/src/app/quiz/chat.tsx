@@ -60,7 +60,7 @@ export const Chat = () => {
             </TooltipProvider>
           </h2>
           <section className="flex items-center justify-center gap-4 mb-6 mr-4">
-            {/* <div className="text-gray-400">123 Play</div> */}
+            <div className="text-gray-400">{question.play}Play</div>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>

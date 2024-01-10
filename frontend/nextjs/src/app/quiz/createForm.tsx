@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { FacebookShareButton, LineShareButton, TwitterShareButton } from 'react-share';
-
+import { Checkbox } from '@/components/ui/checkbox';
 import { FacebookIcon, LineIcon, XIcon } from 'react-share';
 import Link from 'next/link';
 import { useQuestion } from '@/hooks/Question';
@@ -15,6 +15,8 @@ import { useRecoilState } from 'recoil';
 import { createUrlState } from '@/recoil/questionAtom';
 import { useRecapcha } from '@/hooks/Recapcha';
 import { configAtoms } from '@/recoil/configAtoms';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { TURBO_TRACE_DEFAULT_MEMORY_LIMIT } from 'next/dist/shared/lib/constants';
 
 export const CreateForm = () => {
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
@@ -159,6 +161,32 @@ export function Create() {
               </FormLabel>
               <FormControl>
                 <Input placeholder="パスタ" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={formVal.control}
+          name="isPublic"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>公開設定</FormLabel>
+              <FormControl>
+                <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col space-y-1">
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value={TURBO_TRACE_DEFAULT_MEMORY_LIMIT} />
+                    </FormControl>
+                    <FormLabel className="font-normal">公開</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value={false} />
+                    </FormControl>
+                    <FormLabel className="font-normal">限定公開</FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>

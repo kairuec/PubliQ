@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('failWord3')->default("")->nullable();
             $table->integer('good')->default(0)->nullable();
             $table->integer('bad')->default(0)->nullable();
+            $table->integer('play')->default(0)->nullable();
+            $table->boolean('isPublic')->default(true);
             $table->timestamps();
         });
     }

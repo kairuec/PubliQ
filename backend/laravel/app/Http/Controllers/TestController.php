@@ -25,8 +25,9 @@ class TestController extends BaseController
 
     public function index()
     {
-        return response()->json(['element' => 'info', 'message' => '定型文を保存しました。'], 200);
-        dd(Auth::id());
+        $test =new QuestionController;
+        $a = $test->random();
+        dd($a);
     }
 
     //id（数値）がキャストされない連想配列の生成
