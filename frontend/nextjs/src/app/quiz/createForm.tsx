@@ -176,7 +176,7 @@ export function Create() {
                 <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col space-y-1">
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value={TURBO_TRACE_DEFAULT_MEMORY_LIMIT} />
+                      <RadioGroupItem value={true} />
                     </FormControl>
                     <FormLabel className="font-normal">公開</FormLabel>
                   </FormItem>
