@@ -35,7 +35,7 @@ export function useCreateQuestionForm() {
     failWord1: failWordValidation(),
     failWord2: failWordValidation(),
     failWord3: failWordValidation(),
-    isPublic: z.boolean(),
+    isPublic: z.string(),
   });
 
   const formVal = useForm<z.infer<typeof formSchema>>({
@@ -47,7 +47,7 @@ export function useCreateQuestionForm() {
       failWord1: '',
       failWord2: '',
       failWord3: '',
-      isPublic: true,
+      isPublic: 'true',
     },
   });
 

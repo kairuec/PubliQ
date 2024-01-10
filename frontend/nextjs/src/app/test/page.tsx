@@ -15,5 +15,10 @@ export default function Page() {
   const { question, regenerateQuestion } = useQuestion();
 
   // data が存在するかどうかを確認してからアクセスする
-  return <>{question && question.id}</>;
+  return (
+    <>
+      {question && question.id}
+      <button onClick={regenerateQuestion}>更新</button>
+    </>
+  );
 }
