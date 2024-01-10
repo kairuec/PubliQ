@@ -58,7 +58,7 @@ class QuestionController extends Controller
             $prompt = <<<EOD
             {$genre}のクイズです。
             「yes」か「no」で答えてください。
-            質問の意味が理解できなかったら「no」と答えてください。
+            「yes」か「no」で答えられない場合は「unanswerable」と答えてください。
             EOD;
             $chat_response = chatGptService::store($prompt, "「{$answer}」は「{$sentence}」?");
         }
@@ -69,7 +69,11 @@ class QuestionController extends Controller
             $result = "正解！";
         } else if (strstr($chat_response, 'different') !== false) {
             $result = "違う！";
-        } else if (strstr($chat_response, 'yes') !== false) {
+        } 
+        else if (strstr($chat_response, 'unanswerable') !== false) {
+            $result = "回答できません";
+        } 
+        else if (strstr($chat_response, 'yes') !== false) {
             $result = "はい";
         } else {
             $result = "いいえ";

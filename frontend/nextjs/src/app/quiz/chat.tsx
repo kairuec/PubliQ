@@ -95,6 +95,7 @@ export const Chat = () => {
             </h3>
             <p>私に質問をして正解を当てて下さい。</p>
             <p>なお、質問には「はい」か「いいえ」でしか答えません。</p>
+            <p>※回答できない場合もございます。</p>
           </li>
           <li className="zoomIn p-6 space-y-2 rounded-md bg-white shadow-xl w-[320px] md:w-[500px]">
             <h3 className="flex items-center gap-2">
