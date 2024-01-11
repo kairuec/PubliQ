@@ -17,6 +17,7 @@ export default function Page() {
   // data が存在するかどうかを確認してからアクセスする
   return (
     <>
+      {process.env.NODE_ENV}
       {question && question.id}
       <button onClick={regenerateQuestion}>更新</button>
     </>
