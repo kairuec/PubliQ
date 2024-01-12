@@ -14,9 +14,15 @@ export function SideMenu() {
                 <FaXTwitter />
               </span>
               開発者ツイッター
+              <br />
+              お知らせはコチラから
             </Link>
           </li>
-          <li>PabliQ（パブリック）の遊び方</li>
+          <li>
+            <Link href="/info/howto" className="hover:underline">
+              PabliQ（パブリック）の遊び方
+            </Link>
+          </li>
           {/* <li>今後のロードマップ</li> */}
           {/* <li>広告主 募集中</li> */}
           <li>
