@@ -192,7 +192,7 @@ export function Create() {
 export function Result() {
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
   const { question } = useQuestion();
-  const QUOTE = `【PubliQ】AIにチャットして名前当てクイズ\n\nお題：${question.genre}\n`;
+  const QUOTE = `【PubliQ】AIにチャットして名前当てクイズ\n\nお題：${question.genre}\n#PubliQ\n\n`;
 
   return (
     <section className="space-y-8 px-4">
