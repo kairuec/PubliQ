@@ -62,7 +62,7 @@ class QuestionController extends Controller
         if ($mode == 'question') {
             $prompt = <<<EOD
             「yes」か「no」で答えてください。
-            「yes」か「no」で答えられない場合は「unable」と答えてください。
+            答えられない場合は「unable」と答えてください。
             EOD;
             $chat_response = chatGptService::store($prompt, "「{$answer}」は{$sentence}?");
         }
