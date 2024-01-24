@@ -8,6 +8,7 @@ import axios, { csrf } from '@/lib/axios';
 import { useRecoilState } from 'recoil';
 import { questionState } from '@/recoil/questionAtom';
 import { useQuestion } from '@/hooks/Question';
+import Form from '@/components/Form';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
@@ -17,9 +18,8 @@ export default function Page() {
   // data が存在するかどうかを確認してからアクセスする
   return (
     <>
-      {process.env.NODE_ENV}
-      {question && question.id}
-      <button onClick={regenerateQuestion}>更新</button>
+      {/* {process.env.NODE_ENV} */}
+      <Form />
     </>
   );
 }

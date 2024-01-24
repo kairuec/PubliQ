@@ -23,6 +23,11 @@ export function SideMenu() {
               PabliQ（パブリック）の遊び方
             </Link>
           </li>
+          <li>
+            <Link href="/info/howto" className="hover:underline">
+              問題を作る
+            </Link>
+          </li>
           {/* <li>今後のロードマップ</li> */}
           {/* <li>広告主 募集中</li> */}
           <li>
