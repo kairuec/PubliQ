@@ -156,7 +156,7 @@ export const Chat = () => {
                     )}
                   </>
                 )}
-                <ChatSound result={chat.message} />
+                <ChatSound result={chat.message} isUser={chat.isUser} />
               </li>
             );
           })}
@@ -168,18 +168,27 @@ export const Chat = () => {
   );
 };
 
-export function ChatSound(props: { result: string }) {
-  const { result } = props;
+export function ChatSound(props: { result: string; isUser: boolean }) {
+  const { result, isUser } = props;
   const [playSuccess] = useSound('/sounds/クイズ正解2.mp3');
-  const [playChat] = useSound('https://publiq.s3.ap-northeast-1.amazonaws.com/%E6%B1%BA%E5%AE%9A%E3%83%9B%E3%82%99%E3%82%BF%E3%83%B3%E3%82%92%E6%8A%BC%E3%81%992.mp3');
+  const [playDiffelent] = useSound('/sounds/違う.mp3');
+  const [playYes] = useSound('/sounds/はい.mp3');
+  const [playNo] = useSound('/sounds/いいえ.mp3');
+  const [playNormal] = useSound('https://publiq.s3.ap-northeast-1.amazonaws.com/%E6%B1%BA%E5%AE%9A%E3%83%9B%E3%82%99%E3%82%BF%E3%83%B3%E3%82%92%E6%8A%BC%E3%81%992.mp3');
 
   useEffect(() => {
-    if (result == '正解！') {
+    if (result == '正解！' && !isUser) {
       playSuccess();
-    } else if (result != '') {
-      playChat();
+    } else if (result == '違う！' && !isUser) {
+      playDiffelent();
+    } else if (result == 'はい' && !isUser) {
+      playYes();
+    } else if (result == 'いいえ' && !isUser) {
+      playNo();
+    } else {
+      playNormal();
     }
-  }, [playSuccess, playChat, result]);
+  }, [playSuccess, playDiffelent, playYes, playNo, playNormal, result]);
   return <></>;
 }
 
