@@ -11,6 +11,7 @@
         "php": "^8.0.2",
         "ably/ably-php": "^1.1",
         "aws/aws-sdk-php-laravel": "~3.0",
+        "gemini-api-php/laravel": "^0.3.0",
         "guzzlehttp/guzzle": "^7.2",
         "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^9.19",
@@ -69,7 +70,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "stable",

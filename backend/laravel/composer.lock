@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9743a843f5d61158b2cfd4d31016b84",
+    "content-hash": "e5e9842e284ad4ce4b9656b53a5f54b6",
     "packages": [
         {
             "name": "ably/ably-php",
@@ -781,6 +781,146 @@
                 }
             ],
             "time": "2022-02-20T15:07:15+00:00"
+        },
+        {
+            "name": "gemini-api-php/client",
+            "version": "v1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gemini-api-php/client.git",
+                "reference": "369627c1b497676e05dfcbf1f61b2c5aa6046dbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gemini-api-php/client/zipball/369627c1b497676e05dfcbf1f61b2c5aa6046dbc",
+                "reference": "369627c1b497676e05dfcbf1f61b2c5aa6046dbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "php-http/discovery": "^1.19",
+                "psr/http-client": "^1.0",
+                "psr/http-client-implementation": "*",
+                "psr/http-factory": "^1.0.2",
+                "psr/http-factory-implementation": "*",
+                "psr/http-message": "^1.0.1 || ^2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.41",
+                "guzzlehttp/guzzle": "^7.8.0",
+                "guzzlehttp/psr7": "^2.0.0",
+                "phpstan/phpstan": "^1.10.50",
+                "phpunit/phpunit": "^10.5"
+            },
+            "suggest": {
+                "ext-curl": "Required for streaming responses"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GeminiAPI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erdem Köse",
+                    "email": "erdemkose@gmail.com"
+                }
+            ],
+            "description": "API client for Google's Gemini API",
+            "keywords": [
+                "Gemini",
+                "ai",
+                "api",
+                "client",
+                "gemini pro",
+                "gemini pro vision",
+                "google",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/gemini-api-php/client/issues",
+                "source": "https://github.com/gemini-api-php/client/tree/v1.4.3"
+            },
+            "time": "2024-01-17T21:21:41+00:00"
+        },
+        {
+            "name": "gemini-api-php/laravel",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gemini-api-php/laravel.git",
+                "reference": "fc17c037ad7f749f95aadb6501873ab525da5ad5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gemini-api-php/laravel/zipball/fc17c037ad7f749f95aadb6501873ab525da5ad5",
+                "reference": "fc17c037ad7f749f95aadb6501873ab525da5ad5",
+                "shasum": ""
+            },
+            "require": {
+                "gemini-api-php/client": "^1.3.1",
+                "illuminate/support": "^9.0 || ^10.0 || ^11.0",
+                "php": "^8.1",
+                "psr/container": "^1.0 || ^2.0",
+                "psr/http-client": "^1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.8.1",
+                "guzzlehttp/psr7": "^2.0",
+                "laravel/framework": "^9.0 || ^10.0 || ^11.0",
+                "laravel/pint": "^1.13.6",
+                "pestphp/pest": "^2.27.0",
+                "pestphp/pest-plugin-arch": "^2.4.1",
+                "phpstan/phpstan": "^1.10.47",
+                "symfony/var-dumper": "^6.4.0|^7.0.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GeminiAPI\\Laravel\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GeminiAPI\\Laravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erdem Köse",
+                    "email": "erdemkose@gmail.com"
+                }
+            ],
+            "description": "Gemini API client for Laravel",
+            "keywords": [
+                "Gemini",
+                "ai",
+                "api",
+                "client",
+                "gemini pro",
+                "gemini pro vision",
+                "google",
+                "laravel",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/gemini-api-php/laravel/issues",
+                "source": "https://github.com/gemini-api-php/laravel/tree/v0.3.0"
+            },
+            "time": "2023-12-27T03:38:08+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2915,6 +3055,84 @@
                 "source": "https://github.com/paragonie/sodium_compat/tree/v1.20.0"
             },
             "time": "2023-04-30T00:54:53+00:00"
+        },
+        {
+            "name": "php-http/discovery",
+            "version": "1.19.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/discovery.git",
+                "reference": "61e1a1eb69c92741f5896d9e05fb8e9d7e8bb0cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/61e1a1eb69c92741f5896d9e05fb8e9d7e8bb0cb",
+                "reference": "61e1a1eb69c92741f5896d9e05fb8e9d7e8bb0cb",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0|^2.0",
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "nyholm/psr7": "<1.0",
+                "zendframework/zend-diactoros": "*"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "*",
+                "psr/http-factory-implementation": "*",
+                "psr/http-message-implementation": "*"
+            },
+            "require-dev": {
+                "composer/composer": "^1.0.2|^2.0",
+                "graham-campbell/phpspec-skip-example-extension": "^5.0",
+                "php-http/httplug": "^1.0 || ^2.0",
+                "php-http/message-factory": "^1.0",
+                "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
+                "symfony/phpunit-bridge": "^6.2"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Http\\Discovery\\Composer\\Plugin",
+                "plugin-optional": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Discovery\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "src/Composer/Plugin.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Finds and installs PSR-7, PSR-17, PSR-18 and HTTPlug implementations",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "adapter",
+                "client",
+                "discovery",
+                "factory",
+                "http",
+                "message",
+                "psr17",
+                "psr7"
+            ],
+            "support": {
+                "issues": "https://github.com/php-http/discovery/issues",
+                "source": "https://github.com/php-http/discovery/tree/1.19.2"
+            },
+            "time": "2023-11-30T16:49:05+00:00"
         },
         {
             "name": "phpoption/phpoption",
