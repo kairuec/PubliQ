@@ -6,6 +6,7 @@ use Ably\AblyRest;
 use App\Mail\TestMail;
 use App\Models\User;
 use App\Services\Api\chatGptService;
+use App\Services\Api\geminiService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -25,9 +26,7 @@ class TestController extends BaseController
 
     public function index()
     {
-        $test =new QuestionController;
-        $a = $test->random();
-        dd($a);
+        geminiService::store();
     }
 
     //id（数値）がキャストされない連想配列の生成
