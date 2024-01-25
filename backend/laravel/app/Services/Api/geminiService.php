@@ -15,22 +15,22 @@ class geminiService
         $test = Gemini::generateText('「コナン」は工藤優作？「はい」か「いいえ」か「回答できません」と答えて');
         dd($test);
 
-        // $genre = '食べ物';
-        // $correctAnswer = '寿司';
-        // $userAnswer = 'SUSHI';
+        $genre = 'アニメのキャラ';
+        $correctAnswer = 'コナン';
+        $userAnswer = '工藤新一';
 
-        // $prompt = <<<EOD
-        // クイズの判定の役割をお願いします
-        // #お題
-        // {$genre}
-        // #正解のワード
-        // {$correctAnswer}
-        // #お願い
-        // 回答が正解の場合は「正解」
-        // 違う場合は「違う」と答えて
-        // #回答
-        // $userAnswer;
-        // EOD;
+        $prompt = <<<EOD
+        クイズの判定の役割をお願いします
+        #お題
+        {$genre}
+        #正解のワード
+        {$correctAnswer}
+        #お願い
+        回答が正解の場合は「正解」
+        違う場合は「違う」と答えて
+        #回答
+        $userAnswer;
+        EOD;
 
         $test = Gemini::generateText($prompt);
         dd($test);
