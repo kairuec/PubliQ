@@ -185,7 +185,7 @@ export function ChatSound(props: { result: string; isUser: boolean }) {
       playYes();
     } else if (result == 'いいえ' && !isUser) {
       playNo();
-    } else {
+    } else if (result != '' && isUser) {
       playNormal();
     }
   }, [playSuccess, playDiffelent, playYes, playNo, playNormal, result]);
