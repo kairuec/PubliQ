@@ -177,18 +177,34 @@ export function ChatSound(props: { result: string; isUser: boolean }) {
   const [playNormal] = useSound('https://publiq.s3.ap-northeast-1.amazonaws.com/%E6%B1%BA%E5%AE%9A%E3%83%9B%E3%82%99%E3%82%BF%E3%83%B3%E3%82%92%E6%8A%BC%E3%81%992.mp3');
 
   useEffect(() => {
-    if (result == '正解！' && !isUser) {
-      playSuccess();
-    } else if (result == '違う！' && !isUser) {
-      playDiffelent();
-    } else if (result == 'はい' && !isUser) {
-      playYes();
-    } else if (result == 'いいえ' && !isUser) {
-      playNo();
-    } else if (result != '' && isUser) {
+    if (isUser) {
+      // isUserがtrueの場合の処理
       playNormal();
+    } else {
+      // isUserがfalseの場合の処理
+      switch (result) {
+        case '正解！':
+          playSuccess();
+          break;
+        case '違う！':
+          playDiffelent();
+          break;
+        case 'はい':
+          playYes();
+          break;
+        case 'いいえ':
+          playNo();
+          break;
+        case '':
+          // 空文字列の場合は何も行わない
+          break;
+        default:
+          playNormal();
+          break;
+      }
     }
-  }, [playSuccess, playDiffelent, playYes, playNo, playNormal, result]);
+  }, [isUser, playSuccess, playDiffelent, playYes, playNo, playNormal, result]);
+
   return <></>;
 }
 
