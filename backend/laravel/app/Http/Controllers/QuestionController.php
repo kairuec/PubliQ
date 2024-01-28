@@ -71,8 +71,6 @@ class QuestionController extends Controller
             $chat_response = Gemini::generateText($prompt);
         }
 
-        Log::info($chat_response);
-
         if (strstr($chat_response, '正解') !== false) {
             $result = "正解！";
         } else if (strstr($chat_response, '違う') !== false) {

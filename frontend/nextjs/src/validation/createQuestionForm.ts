@@ -22,9 +22,9 @@ export function useCreateQuestionForm() {
 
   const failWordValidation = () =>
     z.string().refine(
-      (val) => !val.includes(answer),
+      (val) => !answer.includes(val),
       (val) => ({
-        message: !val.includes(answer) ? '' : '正解のワードは含めることができません。',
+        message: !answer.includes(val) ? '' : '正解のワードは含めることができません。',
       })
     );
 
