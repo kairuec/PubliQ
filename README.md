@@ -1,2 +1,2 @@
-こちらのリポジトリに関する記事はこちらをご確認ください。
+↓こちらの解説ページ
 https://zenn.dev/eckairu/articles/deab47828db87e
