@@ -27,7 +27,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteName}|AIに質問をして正解を当てるクイズWEBアプリ`,
+    title: `ダウンロード不要|AIに質問をして正解を当てるクイズWEBアプリ`,
     description: description,
     site: '@AiPubliq91607',
     creator: '@AiPubliq91607',

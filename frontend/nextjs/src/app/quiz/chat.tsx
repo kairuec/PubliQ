@@ -114,6 +114,7 @@ export const Chat = () => {
             <p>例：お題「麺類」</p>
             <p>正解：そば</p>
             <p>地雷ワード：うどん,ラーメン,パスタ</p>
+            <Hint />
           </li>
           {chats.map((chat, index) => {
             return (
