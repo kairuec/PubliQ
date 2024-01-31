@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { useQuestion } from '@/hooks/Question';
 import { useCreateQuestionForm } from '@/validation/createQuestionForm';
 import { useRecoilState } from 'recoil';
-import { createUrlState } from '@/recoil/questionAtom';
+import { createGenreState, createUrlState } from '@/recoil/questionAtom';
 import { useRecapcha } from '@/hooks/Recapcha';
 import { configAtoms } from '@/recoil/configAtoms';
 import { Switch } from '@/components/ui/switch';
@@ -40,6 +40,7 @@ export function Create() {
   const { formVal, formSchema, countFull1half05 } = useCreateQuestionForm();
   const [isLoading, setIsLoading] = useState(false);
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
+  const [createGenre, setCreateGenre] = useRecoilState(createGenreState);
   const [config] = useRecoilState(configAtoms);
   const { isRecapchaCheck, handleRecapcha } = useRecapcha();
 
@@ -53,6 +54,7 @@ export function Create() {
         .then((res) => {
           // console.log(res.data);
           setCreateUrl(`${config.originalUrl}?id=${res.data.id}`);
+          setCreateGenre(`${res.data.genre}`);
           setIsLoading(false);
         })
         .catch((error) => {
@@ -191,8 +193,9 @@ export function Create() {
 
 export function Result() {
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
+  const [createGenre, setCreateGenre] = useRecoilState(createGenreState);
   const { question } = useQuestion();
-  const QUOTE = `【PubliQ】AIにチャットして名前当てクイズ\n\nお題：${question.genre}\n#PubliQ\n\n`;
+  const QUOTE = `【PubliQ】AIにチャットして正解を当てて下さい！\n\nお題：${createGenre}\n#PubliQ\n\n`;
 
   return (
     <section className="space-y-8 px-4">

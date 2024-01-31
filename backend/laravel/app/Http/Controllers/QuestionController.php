@@ -91,7 +91,7 @@ class QuestionController extends Controller
     {
         // Log::info($request->values);
         $question = Question::create($request->values);
-        return response()->json(['id' => $question->id], 200);
+        return response()->json(['id' => $question->id,'genre'=> $question->genre], 200);
     }
 
     public function review(Request $request)

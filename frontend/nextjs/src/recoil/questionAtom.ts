@@ -24,6 +24,11 @@ export const createUrlState = atom({
   default: '',
 });
 
+export const createGenreState = atom({
+  key: 'createGenreState',
+  default: '',
+});
+
 export const isFailState = atom({
   key: 'isFailState',
   default: false,
