@@ -195,7 +195,7 @@ export function Result() {
   const [createUrl, setCreateUrl] = useRecoilState(createUrlState);
   const [createGenre, setCreateGenre] = useRecoilState(createGenreState);
   const { question } = useQuestion();
-  const QUOTE = `【PubliQ】AIにチャットして正解を当てて下さい！\n\nお題：${createGenre}\n#PubliQ\n\n`;
+  const QUOTE = `【PubliQ】AIに質問して正解を当てて下さい！\n\nお題：${createGenre}\n#PubliQ\n\n`;
 
   return (
     <section className="space-y-8 px-4">
