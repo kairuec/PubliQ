@@ -17,22 +17,20 @@ export const metadata = {
   },
   description,
   openGraph: {
-    title: siteName,
-    description,
-    url,
-    siteName,
+    title: `${siteName}|AIに質問をするクイズWEBアプリ`,
+    description: description,
+    url: url,
+    siteName: siteName,
     locale: 'ja_JP',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: siteName,
-    description,
-    site: '@PubliQ_AI',
-    creator: '@PubliQ_AI',
+    description: description,
   },
   verification: {
-    google: 'サーチコンソールのやつ',
+    google: '4hDnKAEVix29eEeWlFou3fEVD0IXUtKWCH7b5TuUhkQ',
   },
   alternates: {
     canonical: url,

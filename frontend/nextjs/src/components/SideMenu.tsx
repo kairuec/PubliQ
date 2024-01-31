@@ -9,7 +9,7 @@ export function SideMenu() {
       <SheetContent>
         <ul className="pt-10 px-2 space-y-10">
           <li>
-            <Link href="https://twitter.com/PubliQ_AI" target="_blank" className="flex items-center gap-2 hover:underline">
+            <Link href="https://twitter.com/AiPubliq91607" target="_blank" className="flex items-center gap-2 hover:underline">
               <span className="text-3xl mr-2">
                 <FaXTwitter />
               </span>
