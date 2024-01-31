@@ -8,13 +8,14 @@ const notoSansJP = Noto_Sans_JP({ subsets: ['latin'] });
 
 const siteName = 'PubliQ';
 const description = 'AIに質問をして正解を当てるクイズアプリ。解くだけでなく、自分で問題を作ってSNSでシェアも可能です。';
-const url = 'https://publiq.online';
+const url = 'https://publiq.cloud';
 
 export const metadata = {
   title: {
     default: siteName,
     template: `%s - ${siteName}`,
   },
+  metadataBase: new URL(url),
   description,
   openGraph: {
     title: `${siteName}|AIに質問をするクイズWEBアプリ`,
@@ -28,6 +29,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: siteName,
     description: description,
+    site: '@AiPubliq91607',
+    creator: '@AiPubliq91607',
   },
   verification: {
     google: '4hDnKAEVix29eEeWlFou3fEVD0IXUtKWCH7b5TuUhkQ',
